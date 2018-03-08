@@ -1,16 +1,16 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>addGuest</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script>
 		$(document).ready(function() {
-			// Æû À¯È¿¼º °Ë»ç
-			// guestId 4ÀÌ»ó, guestPw 4ÀÚÀÌ»ó, guestPwCheckÈ®ÀÎ
-			//Æû submit
+			// í¼ ìœ íš¨ì„± ê²€ì‚¬
+			// guestId 4ì´ìƒ, guestPw 4ìì´ìƒ, guestPwCheckí™•ì¸
+			//í¼ submit
 		});
 	</script>
 </head>
@@ -21,9 +21,9 @@
 		<input type="text" id="guestId" name="guestId" class="">
 		guest_pw :
 		<input type="password" id="guestPw" name="guestPw" class="">
-		guest_pwÈ®ÀÎ :
+		guest_pwí™•ì¸ :
 		<input type="password" id="guestPwCheck" name="guestPwCheck" class="">
-		<button type="button">°Ô½ºÆ® Ãß°¡</button>
+		<button type="button">ê²ŒìŠ¤íŠ¸ ì¶”ê°€</button>
 	</form>
 		
 </body>
