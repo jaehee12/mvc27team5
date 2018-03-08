@@ -17,8 +17,5 @@ public class GuestController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String guestId = request.getParameter("guestId");
 		String guestPw = request.getParameter("guestPw");
-		
-		
-		
 	}
 }
