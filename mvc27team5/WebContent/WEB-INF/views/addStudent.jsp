@@ -13,7 +13,11 @@
 					return;
 				}else if($("#studentPw").val().length < 4){
 					$("#helper").text("비밀번호를 4자이상 입력해주세요")
-					
+					return;
+				}else if($("#studentPwCheck") !== $("#studentPw").val()){
+					$("#helper").text("비밀번호를 확인해주세요")
+				}else{
+					$("#myInsertForm").submit();
 				}
 				
 			});
