@@ -26,15 +26,15 @@
 </head>
 <body>
 	<h1>addStudent</h1>
-	<form method="post" action="<%= request.getContextPath() %>/addStudent.jjdev" id="myInsertForm">
-	student_Id :
-	<input type="text" name="studentId" id="studentId" class="">
-	student_pw :
-	<input type="password" name="studentPw" id="studentPw" class="">
-	student_pw :
-	<input type="password" name="studentPwCheck" id="studentPwCheck" class="">
-	<button type="button" id="insertStudent">학생 입력</button>
-	</form>
+		<form method="post" action="<%= request.getContextPath() %>/addStudent.jjdev" id="myInsertForm">
+			student_Id :
+			<input type="text" name="studentId" id="studentId" class="">
+			student_pw :
+			<input type="password" name="studentPw" id="studentPw" class="">
+			student_pw :
+			<input type="password" name="studentPwCheck" id="studentPwCheck" class="">
+			<button type="button" id="insertStudent">학생 입력</button>
+		</form>
 	<div><span id="helper"></span></div>
 </body>
 </html>
