@@ -9,11 +9,6 @@
 	<script>
 		$(document).ready(function(){
 			$("#addbutton").click(function(){				
-				console.log("$('#teacherID').val() : " + jQuery.type($("#teacherID").val()));
-				console.log("$('#teacherPW').val() : " + jQuery.type($("#teacherPW").val()));
-				console.log("$('#teacherPW_check').val() : " + jQuery.type($("#teacherPW_check").val()));
-
-				// 4자 미만 아이디 입력 막기
 				if($("#teacherID").val().length < 4){					
 					alert('아이디를 4자 이상 입력하세요');
 					return ;
@@ -23,14 +18,11 @@
 				}else if($("#teacherPW_check").val().length < 4){	
 					alert('비밀번호확인을 4자 이상입력하세요.');				
 					return ;
-				}else{
-					if($("#teacherID").val() != $("#teacherPW_check").val()){
+				}else if($("#teacherID").val() != $("#teacherPW_check").val()){
 						alert('비밀번호와 비밀번호 확인이 다릅니다.');							
-						return ;
-					}else{
-						$("#helper").text("");
-						$("#addTeacher").submit();
-					}
+					return ;
+				}else{		
+					$("#addTeacher").submit();			
 				}
 			});
 		});
@@ -38,13 +30,11 @@
 </head>
 <body>
 	<h1>addTeacher</h1>
-	<form if="addTeacher" method="post" action="<%= request.getContextPath() %>/addTeacher.jjdev">
+	<form id="addTeacher" method="post" action="<%= request.getContextPath() %>/addTeacher.jjdev">
 		teacher_id : 	<input type = "text" id="teacherID" name="teacherID">
 		teacher_pw : 	<input type = "password" id="teacherPW" name="teacherPW">
 		teacher_pw확인 : 	<input type = "password" id="teacherPW_check" name="teacherPW_check">
 		<button type="button" id="addbutton">추가</button>		
 	</form>
 </body>
-
-
 </html>
