@@ -1,3 +1,4 @@
+/*[ìœ êµ­í™”]*/
 package controller;
 
 import java.io.IOException;
@@ -10,27 +11,23 @@ import javax.servlet.http.HttpServletResponse;
 import model.Teacher;
 import model.TeacherDao;
 
-/**
- * Servlet implementation class TeacherController
- */
+
 @WebServlet("/addTeacher.jjdev")
 public class AddTeacherController extends HttpServlet {
 	private TeacherDao teacherDao;  
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// Teacher ÀÔ·Â Æû
 		request.getRequestDispatcher("/WEB-INF/views/addTeacher.jsp").forward(request, response);
 	}	
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// Teacher ÀÔ·Â(ID, PW)
 		String teacherId = request.getParameter("teacherId");
 		String teacherPw = request.getParameter("teacherPw");
-		// 2. ¸ðµ¨(DAO_ È£Ãâ
 		Teacher teacher = new Teacher();
-		this.teacherDao = new TeacherDao();
-		teacherDao.insertTeacher(teacher);		
-		// 3. ÀÔ·ÂÇÏ°í È­¸é¾øÀ¸´Ï±î list.jsp·Î ¸®´ÙÀÌ·ºÆ®
+		teacher.setTeacherId(teacherId);
+		teacher.setTeacherPw(teacherPw);
+		this.teacherDao = new TeacherDao();		
+		teacherDao.insertTeacher(teacher);
 		response.sendRedirect(request.getContextPath()+"/getTeacherList.jjdev");
 	}
 }

@@ -7,17 +7,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- * Servlet implementation class GetTeacherController
- */
-@WebServlet("/getTeacherList.jjdev")
-public class GetTeacherController extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+import model.TeacherDao;
 
+@WebServlet("/getTeacherList.jjdev")
+public class GetTeacherListController extends HttpServlet {
+	private TeacherDao teacherDao;
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// request
 		// Teacher DAO
-		// request에 속성추가. 순서지켜주세요!
+		teacherDao = new TeacherDao();
+		request.setAttribute("list", teacherDao.selectAllTeacher());
+		// request
 		// forward
 		request.getRequestDispatcher("/WEB-INF/views/getTeacherList.jsp").forward(request, response);
 	}

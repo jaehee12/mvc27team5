@@ -1,8 +1,15 @@
 package model;
 
 public class Teacher {
+	private int teacherNo;
 	private String teacherId;
 	private String teacherPw;
+	public int getTeacherNo() {
+		return teacherNo;
+	}
+	public void setTeacherNo(int teacherNo) {
+		this.teacherNo = teacherNo;
+	}
 	public String getTeacherId() {
 		return teacherId;
 	}
