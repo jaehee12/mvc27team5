@@ -53,8 +53,8 @@ $(document).ready(function(){
 			$("#guestId").closest('.form-group').removeClass("has-error");
 			$("#guestId").closest('.form-group').removeClass("text-danger");
 			$("#guestIdHelper").hide();
-			$("#guestId").closest('.form-group').addClass("has-error");
-			$("#guestIdHelper").closest('.form-group').addClass("text-danger");
+			$("#guestId").closest('.form-group').addClass("has-success");
+			$("#guestIdHelper").closest('.form-group').addClass("text-info");
 			$("#guestIdHelper").show();
 		}
 	});

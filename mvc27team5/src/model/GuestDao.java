@@ -1,4 +1,4 @@
-/*[Áø°æ¼ö]*/
+/*[ì§„ê²½ìˆ˜]*/
 package model;
 
 import java.sql.Connection;
