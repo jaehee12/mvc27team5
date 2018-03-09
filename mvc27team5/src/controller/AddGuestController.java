@@ -19,6 +19,7 @@ public class AddGuestController extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
 		String guestId = request.getParameter("guestId");
 		String guestPw = request.getParameter("guestPw");
 		Guest guest = new Guest();
@@ -26,7 +27,6 @@ public class AddGuestController extends HttpServlet {
 		guest.setGuestPw(guestPw);
 		guestDao = new GuestDao();
 		guestDao.insertGuest(guest);
-		response.sendRedirect("/getGuestList.jk");
-		
+		response.sendRedirect(request.getContextPath() + "/getGuestList.jk");
 	}
 }

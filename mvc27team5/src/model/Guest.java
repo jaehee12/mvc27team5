@@ -1,9 +1,15 @@
 package model;
 
 public class Guest {
+	private String guestNo;
 	private String guestId;
 	private String guestPw;
-	
+	public String getGuestNo() {
+		return guestNo;
+	}
+	public void setGuestNo(String guestNo) {
+		this.guestNo = guestNo;
+	}
 	public String getGuestId() {
 		return guestId;
 	}
@@ -18,6 +24,6 @@ public class Guest {
 	}
 	@Override
 	public String toString() {
-		return "Guest [guestId=" + guestId + ", guestPw=" + guestPw + "]";
+		return "Guest [guestNo=" + guestNo + ", guestId=" + guestId + ", guestPw=" + guestPw + "]";
 	}
 }

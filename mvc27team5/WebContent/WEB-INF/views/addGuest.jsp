@@ -27,9 +27,9 @@ IE를  이전 버전의 브라우저에서 보는 것처럼 내용을 표시하�
 <script src="<%=request.getContextPath()%>/js/bootstrap.min.js"></script>
 <script>
 $(document).ready(function(){
-	var guestId = $(".form-group #guestIdHelper");
-	var guestPw = $(".form-group #guestPwHelper");
-	var guestPwCheck = $(".form-group #guestPwCheckHelper");
+	var guestId = $("#guestIdHelper");
+	var guestPw = $("#guestPwHelper");
+	var guestPwCheck = $("#guestPwCheckHelper");
 	guestId.hide();
 	guestPw.hide();
 	guestPwCheck.hide();
@@ -38,10 +38,13 @@ $(document).ready(function(){
 		guestPw.hide();
 		guestPwCheck.hide();
 		if ($("#guestId").val().length < 4) {
+			guestId.css("color","#ff0000");
 			guestId.show();
 		} else if ($("#guestPw").val().length < 4) {
+			guestId.css("color","#ff0000");
 			guestPw.show();
 		} else if ($("#guestPw").val() != $("#guestPwCheck").val()) {
+			guestId.css("color","#ff0000");
 			guestPwCheck.show();
 		} else {
 			$("#guestForm").submit();
@@ -136,10 +139,10 @@ $(document).ready(function(){
 								<li><a href="#">기능1</a></li>
 								<li><a href="#">기능2</a></li>
 								<li class="divider"></li>
-								<li><a href="<%= request.getContextPath() %>/clan/insertClan.jsp">Guest 정보 수정</a></li>
+								<li><a href="#">Guest 정보 수정</a></li>
 							</ul>
 						</li>
-						<li><a href="<%= request.getContextPath() %>/login/logout.jsp">로그아웃</a></li>				
+						<li><a href="#">로그아웃</a></li>				
 					<% } %>					
 				</ul>
 			</div>
