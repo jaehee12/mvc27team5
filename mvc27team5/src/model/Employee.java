@@ -1,16 +1,17 @@
+/*[백지훈]*/
 package model;
 
 public class Employee {
-	private String employeeNo;
+	private int employeeNo;
 	private String employeeId;
 	private String employeePw;
 	
 	
-	public String getEmployeeNo() {
+	public int getEmployeeNo() {
 		return employeeNo;
 	}
-	public void setEmployeeNo(String employeeNo) {
-		this.employeeNo = employeeNo;
+	public void setEmployeeNo(int string) {
+		this.employeeNo = string;
 	}
 	public String getEmployeeId() {
 		return employeeId;

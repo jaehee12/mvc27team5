@@ -1,3 +1,4 @@
+/*[ë°±ì§€í›ˆ]*/
 package controller;
 
 import java.io.IOException;
@@ -6,25 +7,34 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.EmployeeDao;
+import model.Employee;
 
-/**
- * Servlet implementation class EmployeeController
- */
 @WebServlet("/addEmployee.jjdev")
 public class AddEmployeeController extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+	private EmployeeDao employeeDao;
 	
-	// Á÷¿ø ÀÔ·ÂÆû ¿äÃ»
+	// employee ì…ë ¥ í¼ìš”ì²­
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("/WEB-INF/views/addEmployee.jsp").forward(request, response);		
+		request.getRequestDispatcher("/WEB-INF/views/addEmployee.jsp").forward(request, response);
 	}
-	
-	// Á÷¿ø ÀÔ·Â
+
+	//employee ì…ë ¥
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String employeeId = request.getParameter("employeeId");
 		String employeePw = request.getParameter("employeePw");
+		
+		Employee employee = new Employee();
+		employee.setEmployeeId(employeeId);
+		employee.setEmployeePw(employeePw);
+		this.employeeDao = new EmployeeDao();
+		employeeDao.insertEmployee(employee);
+		//1.request ì²˜ë¦¬
+		//2.ëª¨ë¸ (DAO) í˜¸ì¶œ
+		//3.ë‹¤ë¥¸ controller í˜¸ì¶œ (redirect)
+		response.sendRedirect(request.getContextPath()+"/getEmployeeList.jjdev");
 	}
 
-}
 
+}
 
