@@ -82,12 +82,12 @@ IE를  이전 버전의 브라우저에서 보는 것처럼 내용을 표시하�
 		<!-- /.container-fluid -->
 	</nav>
 
-		<%
-		ArrayList<Guest> list = (ArrayList<Guest>) request.getAttribute("list");
-		
-		%>
+	<%
+	ArrayList<Guest> list = (ArrayList<Guest>) request.getAttribute("list");
+	%>
+	<div align="center">
 		<h1>guestList</h1>
-		<table border="1">
+		<table border="1" class="table">
 			<thead>
 				<tr>
 					<th>게스트 순서</th>
@@ -95,24 +95,25 @@ IE를  이전 버전의 브라우저에서 보는 것처럼 내용을 표시하�
 					<th>게스트 비번</th>
 					<th>수정</th>
 					<th>삭제</th>
-					
+	
 				</tr>
 			</thead>
 			<tbody>
 				<%
-				for(Guest guest : list){
-				%>
-					<tr>
-						<td><%= guest.getGuestNo() %></td>
-						<td><%= guest.getGuestId() %></td>
-						<td><%= guest.getGuestPw() %></td>
-						<td><a href="#">수정</a></td>
-						<td><a href="#">삭제</a></td>
-					</tr>
+					for(Guest guest : list){
+					%>
+				<tr>
+					<td><%= guest.getGuestNo() %></td>
+					<td><%= guest.getGuestId() %></td>
+					<td><%= guest.getGuestPw() %></td>
+					<td><a href="#">수정</a></td>
+					<td><a href="#">삭제</a></td>
+				</tr>
 				<%
-				}
-				%>
+					}
+					%>
 			</tbody>
 		</table>
+	</div>
 </body>
 </html>

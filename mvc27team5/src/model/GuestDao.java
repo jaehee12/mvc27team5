@@ -11,11 +11,88 @@ import db.DbConnection;
 
 public class GuestDao {
 	
+	public int updateGuest(Guest guest) {
+		Connection connection = null;
+		PreparedStatement statement = null;
+		ResultSet resultSet = null;
+		int result = 0;
+		String sql = "UPDATE guest SET guest_id = ?, guest_pw = ? WHERE guest_no = ?";
+		
+		try {
+			connection = DbConnection.dbConn();
+			statement = connection.prepareStatement(sql);
+			statement.setString(1, guest.getGuestId());
+			statement.setString(2, guest.getGuestPw());
+			statement.setInt(3, guest.getGuestNo());
+			result = statement.executeUpdate();
+		} catch(ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch(SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if(statement != null) try { statement.close(); } catch(SQLException ex) { }
+			if(connection != null) try { connection.close(); } catch(SQLException ex) { }
+		}
+		return result;
+	}
+	
+	public Guest selectForUpdate(int guestNo) {
+		Connection connection = null;
+		PreparedStatement statement = null;
+		ResultSet resultSet = null;
+		Guest guest = new Guest();
+		String sql = "SELECT guest_no AS guestNo, guest_id AS guestId, guest_pw AS guestPw FROM guest WHERE guest_no = ?";
+		
+		try {
+			connection = DbConnection.dbConn();
+			statement = connection.prepareStatement(sql);
+			statement.setInt(1, guestNo);
+			resultSet = statement.executeQuery();
+			if(resultSet.next()) {
+				guest.setGuestId(resultSet.getString("guestId"));
+				guest.setGuestPw(resultSet.getString("guestPw"));
+			}
+		} catch(ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch(SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if(statement != null) try { statement.close(); } catch(SQLException ex) { }
+			if(connection != null) try { connection.close(); } catch(SQLException ex) { }
+		}
+		return guest;
+		
+	}
+	
+	public int deleteGuest(int guestNo) {
+		Connection connection = null;
+		PreparedStatement statement = null;
+		ResultSet resultSet = null;
+		int result = 0;
+		String sql = "DELETE FROM guest WHERE guest_no = ?";
+		
+		try {
+			connection = DbConnection.dbConn();
+			statement = connection.prepareStatement(sql);
+			statement.setInt(1, guestNo);
+			result = statement.executeUpdate();
+		} catch(ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch(SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if(statement != null) try { statement.close(); } catch(SQLException ex) { }
+			if(connection != null) try { connection.close(); } catch(SQLException ex) { }
+		}
+		return result;
+	}
+	
 	public int insertGuest(Guest guest) {
 		Connection connection = null;
 		PreparedStatement statement = null;
-		String sql = "INSERT INTO guest (guest_id, guest_pw) VALUES (?, ?)";
 		int result = 0;
+		String sql = "INSERT INTO guest (guest_id, guest_pw) VALUES (?, ?)";
+		
 		try {
 			connection = DbConnection.dbConn();
 			statement = connection.prepareStatement(sql);
@@ -47,7 +124,7 @@ public class GuestDao {
 			
 			while(resultSet.next()) {
 				Guest guest = new Guest();
-				guest.setGuestNo(resultSet.getString("guestNo"));
+				guest.setGuestNo(resultSet.getInt("guestNo"));
 				guest.setGuestId(resultSet.getString("guestId"));
 				guest.setGuestPw(resultSet.getString("guestPw"));
 				list.add(guest);

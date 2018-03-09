@@ -2,13 +2,13 @@
 package model;
 
 public class Guest {
-	private String guestNo;
+	private int guestNo;
 	private String guestId;
 	private String guestPw;
-	public String getGuestNo() {
+	public int getGuestNo() {
 		return guestNo;
 	}
-	public void setGuestNo(String guestNo) {
+	public void setGuestNo(int guestNo) {
 		this.guestNo = guestNo;
 	}
 	public String getGuestId() {

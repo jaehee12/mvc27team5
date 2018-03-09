@@ -1,3 +1,4 @@
+/*[진경수]*/
 package db;
 
 import java.sql.Connection;

@@ -19,7 +19,8 @@ IE를  이전 버전의 브라우저에서 보는 것처럼 내용을 표시하�
 <link href="<%=request.getContextPath()%>/css/login.css" rel="stylesheet">
 <!-- jQuery (부트스트랩의 자바스크립트 플러그인을 위해 필요합니다.) 그런데 나는 자바스크랩트 최신버전으로 새로 받은거임~ -->
 <style>
-	.addGuestForm{width:300px}
+	.addGuestForm{width:300px;}
+	.input-group{width:100%;}
 </style>
 <script src="<%=request.getContextPath()%>/js/jquery-3.3.1.min.js"></script>
 <!-- 로그인 버튼 누르면 submit시키려고~ -->
@@ -31,6 +32,9 @@ $(document).ready(function(){
 	var guestId = $("#guestIdHelper");
 	var guestPw = $("#guestPwHelper");
 	var guestPwCheck = $("#guestPwCheckHelper");
+	$(".guest-id span").hide();
+	$(".guest-pw span").hide();
+	$(".guest-pw-check span").hide();
 	$("p").hide();
 	$("#guestBtn").click(function(e) {
 		if ($("#guestId").val().length < 4) {
@@ -45,66 +49,69 @@ $(document).ready(function(){
 	});
 	
 	$("#guestId").blur(function(){
+		$(".guest-id span").show();
 		if($("#guestId").val().length < 4){
-			$("#guestId").closest('.form-group').addClass("has-error");
-			$("#guestIdHelper").closest('.form-group').addClass("text-danger");
-			$("#guestIdHelper").show();
-		}else {
-			$("#guestId").closest('.form-group').removeClass("has-error");
-			$("#guestId").closest('.form-group').removeClass("text-danger");
-			$("#guestIdHelper").hide();
-			$("#guestId").closest('.form-group').addClass("has-success");
-			$("#guestIdHelper").closest('.form-group').addClass("text-info");
-			$("#guestIdHelper").show();
+			$(".guest-id").removeClass("text-success");
+			$(".guest-id").removeClass("has-success");
+			$(".guest-id span").removeClass("glyphicon glyphicon-ok");
+			$(".guest-id").addClass("text-danger");
+			$(".guest-id").addClass("has-error");
+			$(".guest-id span").addClass("glyphicon glyphicon-remove-circle");
+			$(".guest-id p").show();
+		} else {
+			$(".guest-id").removeClass("text-danger");
+			$(".guest-id").removeClass("has-error");
+			$(".guest-id span").removeClass("glyphicon glyphicon-remove-circle");
+			$(".guest-id p").hide();
+			$(".input-group span").addClass("glyphicon glyphicon-ok");
+			$(".guest-id").addClass("text-success");
+			$(".guest-id").addClass("has-success");
+		}
+	});
+	
+	$("#guestPw").blur(function(){
+		$(".guest-pw span").show();
+		if($("#guestPw").val().length < 4){
+			$(".guest-pw").removeClass("text-success");
+			$(".guest-pw").removeClass("has-success");
+			$(".guest-pw span").removeClass("glyphicon glyphicon-ok");
+			$(".guest-pw").addClass("text-danger");
+			$(".guest-pw").addClass("has-error");
+			$(".guest-pw span").addClass("glyphicon glyphicon-remove-circle");
+			$(".guest-pw p").show();
+		} else {
+			$(".guest-pw").removeClass("text-danger");
+			$(".guest-pw").removeClass("has-error");
+			$(".guest-pw span").removeClass("glyphicon glyphicon-remove-circle");
+			$(".guest-pw p").hide();
+			$(".input-group span").addClass("glyphicon glyphicon-ok");
+			$(".guest-pw").addClass("text-success");
+			$(".guest-pw").addClass("has-success");
+		}
+	});
+	
+	$("#guestPwCheck").blur(function(){
+		$(".guest-pw-check span").show();
+		if(($("#guestPw").val() != $("#guestPwCheck").val()) || ($("#guestPwCheck").val().length < 4)){
+			$(".guest-pw-check").removeClass("text-success");
+			$(".guest-pw-check").removeClass("has-success");
+			$(".guest-pw-check span").removeClass("glyphicon glyphicon-ok");
+			$(".guest-pw-check").addClass("text-danger");
+			$(".guest-pw-check").addClass("has-error");
+			$(".guest-pw-check span").addClass("glyphicon glyphicon-remove-circle");
+			$(".guest-pw-check p").show();
+		} else {
+			$(".guest-pw-check").removeClass("text-danger");
+			$(".guest-pw-check").removeClass("has-error");
+			$(".guest-pw-check span").removeClass("glyphicon glyphicon-remove-circle");
+			$(".guest-pw-check p").hide();
+			$(".input-group span").addClass("glyphicon glyphicon-ok");
+			$(".guest-pw-check").addClass("text-success");
+			$(".guest-pw-check").addClass("has-success");
 		}
 	});
 });
 </script>
-<!-- 완전히 내껏으로 이해 한 다음 다른조꺼 참고할것!!!    
-<script>
-	$(document).ready(function(){
-		$("p").hide();
-		$("input.teacherId").blur(function(){
-			if($("input.teacherId").val().length < 5){
-				$("div.teacherId").addClass("has-error");
-				$("span.teacherId").addClass("glyphicon glyphicon-alert");
-				$("p.teacherId").show();
-			}else {
-				$("div.teacherId").removeClass("has-error");
-				$("span.teacherId").removeClass("glyphicon glyphicon-alert");
-				$("div.teacherId").addClass("has-success");
-				$("span.teacherId").addClass("glyphicon glyphicon-ok");
-				$("p.teacherId").hide();
-			}
-		});
-		$("input.teacherPw").blur(function(){
-			if($("input.teacherPw").val().length < 10){
-				$("div.teacherPw").addClass("has-error");
-				$("span.teacherPw").addClass("glyphicon glyphicon-alert");
-				$("p.teacherPw").show();
-			}else {
-				$("div.teacherPw").removeClass("has-error");
-				$("span.teacherPw").removeClass("glyphicon glyphicon-alert");
-				$("div.teacherPw").addClass("has-success");
-				$("span.teacherPw").addClass("glyphicon glyphicon-ok");
-				$("p.teacherPw").hide();
-			}
-		});
-		$("input.teacherPwCheck").blur(function(){
-			if($("input.teacherPwCheck").val() === $("input.teacherPw").val()){
-				$("div.teacherPwCheck").removeClass("has-error");
-				$("span.teacherPwCheck").removeClass("glyphicon glyphicon-alert");
-				$("div.teacherPwCheck").addClass("has-success");
-				$("span.teacherPwCheck").addClass("glyphicon glyphicon-ok");
-			}else {
-				$("p.teacherPwCheck").hide();
-				$("div.teacherPwCheck").addClass("has-error");
-				$("span.teacherPwCheck").addClass("glyphicon glyphicon-alert");
-				$("p.teacherPwCheck").show();
-			}
-		});
-	});
-</script> -->
 </head>
 <body>
 	<nav class="navbar  navbar-inverse" style="margin-bottom: 0;">
@@ -158,33 +165,31 @@ $(document).ready(function(){
 		</div>
 		<!-- /.container-fluid -->
 	</nav>
-
-<%--  	<div class="addGuestForm">
-		<h1>addGuest</h1>
-		<form action="<%=request.getContextPath()%>/addGuest.jk" method="post" id="guestForm">
-			guestId : <input type="text" id="guestId" name="guestId"><span id="guestId"></span><br> 
-			guestPw : <input type="password" id="guestPw" name="guestPw"><span id="guestPw"></span><br>
-			guestPw 확인 : <input type="password" id="guestPwCheck" name="guestPwCheck"><span id="teacherPwCheck"></span><br>
-			<button type="button" id="guestBtn">게스트 추가</button>
-		</form>
-	</div> --%>
-
 	<div class="col-md-6 col-md-offset-3">
 		<h1>Guest 추가</h1>
 		<form id="guestForm" action="<%=request.getContextPath()%>/addGuest.jk" method="post">
-			<div class="form-group">
+			<div class="form-group guest-id">
 				<label>이름</label>
-				<input type="text" class="form-control" id="guestId" name="guestId" placeholder="이름을 입력해 주세요">
+				<div class="input-group">
+					<span class="input-group-addon"></span>
+					<input type="text" class="form-control" id="guestId" name="guestId" placeholder="이름을 입력해 주세요">
+				</div>
 				<p id="guestIdHelper">아이디를 4자 이상 입력 해 주세요</p>
 			</div>
-			<div class="form-group">
+			<div class="form-group guest-pw">
 				<label>비밀번호</label>
-				<input type="password" class="form-control" id="guestPw" name="guestPw" placeholder="비밀번호">
+				<div class="input-group">
+					<span class="input-group-addon"></span>
+					<input type="password" class="form-control" id="guestPw" name="guestPw" placeholder="비밀번호">
+				</div>
 				<p id="guestPwHelper">비밀번호를 4자 이상 입력 해 주세요</p>
 			</div>
-			<div class="form-group">
+			<div class="form-group guest-pw-check">
 				<label>비밀번호 확인</label>
-				<input type="password" class="form-control" id="guestPwCheck" name="guestPwCheck" placeholder="비밀번호 확인">
+				<div class="input-group">
+					<span class="input-group-addon"></span>
+					<input type="password" class="form-control" id="guestPwCheck" name="guestPwCheck" placeholder="비밀번호 확인">
+				</div>
 				<p id="guestPwCheckHelper">비밀번호가 일치하지 않습니다</p>
 			</div>
 			<div class="form-group text-center">
@@ -193,38 +198,5 @@ $(document).ready(function(){
 			</div>
 		</form>
 	</div>
-
-	<%-- 완전히 이해한다음 다른조 껏 참조할것!
-		<h2>addTeacher</h2>
-			<div id="form">
-			<form method="post" action="<%=request.getContextPath()%>/teacherController.team2" class="form-horizontal">
-			<div class="teacherId form-group has-feedback">
-				<label for="teacherId" class="col-sm-2 control-label">Teacher_id</label>
-				<div class="col-sm-10">
-					<input type="text" id="teacherId" name="teacherId" class="teacherId form-control" placeholder="아이디를 입력하세요.">
-					<span class="teacherId form-control-feedback"></span>
-					<p class="teacherId">아이디는 5글자 이상입니다</p>
-				</div>
-			</div>
-			<div class="teacherPw form-group has-feedback">
-				<label for="teacherPw" class="col-sm-2 control-label">Teacher_pw</label>
-				<div class="col-sm-10">
-					<input type="password" id="teacherPw" name="teacherPw" class="teacherPw form-control" placeholder="비밀번호를 입력하세요.">
-					<span class="teacherPw form-control-feedback"></span>
-					<p class="teacherPw">비밀번호는 10글자 이상입니다</p>
-				</div>
-			</div>
-				<div class="teacherPwCheck form-group has-feedback">
-				<label for="teacherPwCheck" class="col-sm-2 control-label">Teacher_pw확인</label>
-				<div class="col-sm-10">
-					<input type="password" id="teacherPwCheck" name="teacherPwCheck" class="teacherPwCheck form-control" placeholder="비밀번호를 재입력해주세요.">
-					<span class="teacherPwCheck form-control-feedback"></span>
-					<p class="teacherPwCheck">비밀번호가 일치하지않습니다</p>
-				</div>
-			</div>
-			<button type="submit" class="btn btn-primary btn-lg btn-block">teacher추가</button>
-		</form>
-		</div>
- --%>
 </body>
 </html>
