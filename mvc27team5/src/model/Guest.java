@@ -1,3 +1,4 @@
+/*[Áø°æ¼ö]*/
 package model;
 
 public class Guest {

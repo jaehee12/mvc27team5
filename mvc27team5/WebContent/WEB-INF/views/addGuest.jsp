@@ -1,3 +1,4 @@
+<!-- [진경수] -->
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -30,24 +31,31 @@ $(document).ready(function(){
 	var guestId = $("#guestIdHelper");
 	var guestPw = $("#guestPwHelper");
 	var guestPwCheck = $("#guestPwCheckHelper");
-	guestId.hide();
-	guestPw.hide();
-	guestPwCheck.hide();
+	$("p").hide();
 	$("#guestBtn").click(function(e) {
-		guestId.hide();
-		guestPw.hide();
-		guestPwCheck.hide();
 		if ($("#guestId").val().length < 4) {
-			guestId.css("color","#ff0000");
-			guestId.show();
+			
 		} else if ($("#guestPw").val().length < 4) {
-			guestId.css("color","#ff0000");
-			guestPw.show();
+			
 		} else if ($("#guestPw").val() != $("#guestPwCheck").val()) {
-			guestId.css("color","#ff0000");
-			guestPwCheck.show();
+			
 		} else {
 			$("#guestForm").submit();
+		}
+	});
+	
+	$("#guestId").blur(function(){
+		if($("#guestId").val().length < 4){
+			$("#guestId").closest('.form-group').addClass("has-error");
+			$("#guestIdHelper").closest('.form-group').addClass("text-danger");
+			$("#guestIdHelper").show();
+		}else {
+			$("#guestId").closest('.form-group').removeClass("has-error");
+			$("#guestId").closest('.form-group').removeClass("text-danger");
+			$("#guestIdHelper").hide();
+			$("#guestId").closest('.form-group').addClass("has-error");
+			$("#guestIdHelper").closest('.form-group').addClass("text-danger");
+			$("#guestIdHelper").show();
 		}
 	});
 });
@@ -161,32 +169,32 @@ $(document).ready(function(){
 		</form>
 	</div> --%>
 
-        <div class="col-md-6 col-md-offset-3">
-        <h1>Guest 추가</h1>
-          <form id="guestForm" action="<%= request.getContextPath() %>/addGuest.jk" method="post">
-            <div class="form-group">
-              <label>이름</label>
-              <input type="text" class="form-control" id="guestId" name="guestId" placeholder="이름을 입력해 주세요">
-              <p id="guestIdHelper">아이디를 4자 이상 입력 해 주세요</p>
-            </div>
-            <div class="form-group">
-              <label>비밀번호</label>
-              <input type="password" class="form-control" id="guestPw" name="guestPw" placeholder="비밀번호">
-              <p id="guestPwHelper">비밀번호를  4자 이상 입력 해 주세요</p>
-            </div>
-            <div class="form-group">
-              <label>비밀번호 확인</label>
-              <input type="password" class="form-control" id="guestPwCheck" name="guestPwCheck" placeholder="비밀번호 확인">
-              <p id="guestPwCheckHelper">비밀번호가 일치하지 않습니다</p>
-            </div>
-            <div class="form-group text-center">
-              <button type="button" id="guestBtn" class="btn btn-info">회원가입</button>
-              <button type="button" class="btn btn-warning">가입취소</button>
-            </div>
-          </form>
-        </div>
+	<div class="col-md-6 col-md-offset-3">
+		<h1>Guest 추가</h1>
+		<form id="guestForm" action="<%=request.getContextPath()%>/addGuest.jk" method="post">
+			<div class="form-group">
+				<label>이름</label>
+				<input type="text" class="form-control" id="guestId" name="guestId" placeholder="이름을 입력해 주세요">
+				<p id="guestIdHelper">아이디를 4자 이상 입력 해 주세요</p>
+			</div>
+			<div class="form-group">
+				<label>비밀번호</label>
+				<input type="password" class="form-control" id="guestPw" name="guestPw" placeholder="비밀번호">
+				<p id="guestPwHelper">비밀번호를 4자 이상 입력 해 주세요</p>
+			</div>
+			<div class="form-group">
+				<label>비밀번호 확인</label>
+				<input type="password" class="form-control" id="guestPwCheck" name="guestPwCheck" placeholder="비밀번호 확인">
+				<p id="guestPwCheckHelper">비밀번호가 일치하지 않습니다</p>
+			</div>
+			<div class="form-group text-center">
+				<button type="button" id="guestBtn" class="btn btn-info">회원가입</button>
+				<button type="button" class="btn btn-warning">가입취소</button>
+			</div>
+		</form>
+	</div>
 
-<%-- 완전히 이해한다음 다른조 껏 참조할것!
+	<%-- 완전히 이해한다음 다른조 껏 참조할것!
 		<h2>addTeacher</h2>
 			<div id="form">
 			<form method="post" action="<%=request.getContextPath()%>/teacherController.team2" class="form-horizontal">
