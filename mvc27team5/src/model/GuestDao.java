@@ -17,7 +17,7 @@ public class GuestDao {
 		String sql = "INSERT INTO guest (guest_id, guest_pw) VALUES (?, ?)";
 		int result = 0;
 		try {
-			connection = new DbConnection().dbConn();
+			connection = DbConnection.dbConn();
 			statement = connection.prepareStatement(sql);
 			statement.setString(1, guest.getGuestId());
 			statement.setString(2, guest.getGuestPw());
@@ -41,7 +41,7 @@ public class GuestDao {
 		ResultSet resultSet = null;
 		String sql = "SELECT guest_no AS guestNo, guest_id AS guestId, guest_pw AS guestPw FROM guest";
 		try {
-			connection = new DbConnection().dbConn();
+			connection = DbConnection.dbConn();
 			statement = connection.prepareStatement(sql);
 			resultSet = statement.executeQuery();
 			

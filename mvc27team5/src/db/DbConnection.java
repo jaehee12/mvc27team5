@@ -10,7 +10,7 @@ public class DbConnection {
 	 * @return connection
 	 * @throws ClassNotFoundException
 	 */
-	public Connection dbConn() throws ClassNotFoundException {
+	public static Connection dbConn() throws ClassNotFoundException {
 		Connection conn = null;
 		Class.forName("com.mysql.jdbc.Driver");
 		String jdbcDriver = "jdbc:mysql://localhost:3306/mvc?" +
