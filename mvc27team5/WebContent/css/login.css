@@ -24,7 +24,8 @@
   position: relative;
 }
 
-.loginmodal-container input[type=text], input[type=password] {
+/* 여기부분 약간 수정했음! input[type=password] 만 있으면 다른 password속성인 것도 건들여서!*/
+.loginmodal-container input[type=text], .loginmodal-container input[type=password] {
   height: 44px;
   font-size: 16px;
   width: 100%;

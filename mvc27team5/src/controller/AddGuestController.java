@@ -7,9 +7,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import model.Guest;
+import model.GuestDao;
+
 
 @WebServlet("/addGuest.jk")
-public class GuestController extends HttpServlet {
+public class AddGuestController extends HttpServlet {
+	private GuestDao guestDao;
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.getRequestDispatcher("/WEB-INF/views/addGuest.jsp").forward(request, response);
 	}
@@ -17,5 +21,12 @@ public class GuestController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String guestId = request.getParameter("guestId");
 		String guestPw = request.getParameter("guestPw");
+		Guest guest = new Guest();
+		guest.setGuestId(guestId);
+		guest.setGuestPw(guestPw);
+		guestDao = new GuestDao();
+		guestDao.insertGuest(guest);
+		response.sendRedirect("/getGuestList.jk");
+		
 	}
 }
