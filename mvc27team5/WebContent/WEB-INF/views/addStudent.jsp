@@ -1,8 +1,9 @@
+<!-- [김재희] -->
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-	 <meta charset="utf-8">
+	<meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
@@ -33,7 +34,7 @@
 		});
 	</script>
 </head>
-  <body>
+<body>
     <div class="container">
       <div class="row">
         <div class="page-header">
@@ -41,29 +42,29 @@
         </div>
         <div class="col-md-3">
           <div class="login-box well">
-        <form accept-charset="UTF-8" id="studentInsertForm" method="post" action="<%= request.getContextPath()%>/addStudent.jjdev">
-            <legend>Student Insert</legend>
-            <div class="form-group">
-                <label for="username-email">Student ID</label>
-                <input name="studentId" value='' id="studentId" placeholder="Enter ID" type="text" class="form-control" />
-            </div>
-            <div class="form-group">
-                <label for="password">비밀번호</label>
-                <input name="studentPw" id="studentPw" value='' placeholder="Enter Password" type="password" class="form-control" />
-            </div>
-            <div class="form-group">
-                <label for="password">비밀번호 확인</label>
-                <input name="studentPw" id="studentPwCheck" value='' placeholder="Password Check" type="password" class="form-control" />
-            </div>  
-            <hr />
-            <div class="form-group">
-                <input type="button" id="insertStudent" class="btn btn-default btn-login-submit btn-block m-t-md" value="학생으로 회원가입" />
-            </div>
-            <div class="form-group">
-                <a href="" class="btn btn-default btn-block m-t-md">학생으로 로그인</a>
-            </div>
-        </form>
-        <div><span id="helper"></span></div>
+	        <form accept-charset="UTF-8" id="studentInsertForm" method="post" action="<%= request.getContextPath()%>/addStudent.jjdev">
+	            <legend>Student Insert</legend>
+	            <div class="form-group">
+	                <label for="username-email">Student ID</label>
+	                <input name="studentId" value='' id="studentId" placeholder="Enter ID" type="text" class="form-control" />
+	            </div>
+	            
+	            <div class="form-group">
+	                <label for="password">비밀번호</label>
+	                <input name="studentPw" id="studentPw" value='' placeholder="Enter Password" type="password" class="form-control" />
+	            </div>
+	            
+	            <div class="form-group">
+	                <label for="password">비밀번호 확인</label>
+	                <input name="studentPw" id="studentPwCheck" value='' placeholder="Password Check" type="password" class="form-control" />
+	            </div>
+	              
+	            <hr />
+	            <div class="form-group">
+	                <input type="button" id="insertStudent" class="btn btn-default btn-login-submit btn-block m-t-md" value="학생으로 회원가입" />
+	            </div>
+	        </form>
+        	<div><span id="helper"></span></div>
           </div>
         </div>
       </div>

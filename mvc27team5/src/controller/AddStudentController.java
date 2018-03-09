@@ -1,3 +1,4 @@
+// [ê¹€ì¬í¬]
 package controller;
 
 import java.io.IOException;
@@ -14,25 +15,24 @@ import model.StudentDao;
 public class AddStudentController extends HttpServlet {
 	private StudentDao studentDao;
        
-	//student ÀÔ·Â Æû¿äÃ»
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.getRequestDispatcher("/WEB-INF/views/addStudent.jsp").forward(request, response);
 	}
 
-	//studentÀÔ·Â
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String studentId = request.getParameter("studentId");
 		String studentPw = request.getParameter("studentPw");
-		Student student = new Student();
-		// student setterÈ£Ãâ
 		
-		StudentDao sutdentDao = new StudentDao();
-		this.studentDao.insertStudent(student);
+		Student student = new Student();
+		student.setStudentId(studentId);
+		student.setStudentPw(studentPw);
+		
+		StudentDao studentDao = new StudentDao();
+		studentDao.insertStudent(student);
 		response.sendRedirect(request.getContextPath() + "/getStudentList.jjdev");
 		
-		//1.requestÃ³¸®
-		//2.¸ğµ¨ daoÈ£Ãâ
-		//3. list redirect
+		
 	}
 
 }
