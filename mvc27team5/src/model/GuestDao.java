@@ -141,4 +141,35 @@ public class GuestDao {
 		}
 		return list;
 	}
+	
+	
+	public boolean gIdCheck(String guestId) {
+		Connection connection = null;
+		PreparedStatement statement = null;
+		ResultSet resultSet = null;
+		Guest guest = new Guest();
+		boolean result = false;
+		String sql = "SELECT guest_id AS guestId FROM guest WHERE guest_id = ?";
+		try {
+			connection = DbConnection.dbConn();
+			statement = connection.prepareStatement(sql);
+			statement.setString(1, guestId);
+			System.out.println(statement);
+			resultSet = statement.executeQuery();
+			if(resultSet.next()) {
+				result = true;
+			}
+		} catch(ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch(SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if(resultSet != null) try { resultSet.close(); } catch(SQLException ex) { }
+			if(statement != null) try { statement.close(); } catch(SQLException ex) { }
+			if(connection != null) try { connection.close(); } catch(SQLException ex) { }
+		}
+		return result;
+		
+	}
+	
 }

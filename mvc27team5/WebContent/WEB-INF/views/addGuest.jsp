@@ -21,6 +21,7 @@ IE를  이전 버전의 브라우저에서 보는 것처럼 내용을 표시하�
 <style>
 	.addGuestForm{width:300px;}
 	.input-group{width:100%;}
+	.input-group-addon{top:0 !important;}
 </style>
 <script src="<%=request.getContextPath()%>/js/jquery-3.3.1.min.js"></script>
 <!-- 로그인 버튼 누르면 submit시키려고~ -->
@@ -29,12 +30,10 @@ IE를  이전 버전의 브라우저에서 보는 것처럼 내용을 표시하�
 <script src="<%=request.getContextPath()%>/js/bootstrap.min.js"></script>
 <script>
 $(document).ready(function(){
-	var guestId = $("#guestIdHelper");
-	var guestPw = $("#guestPwHelper");
-	var guestPwCheck = $("#guestPwCheckHelper");
 	$(".guest-id span").hide();
 	$(".guest-pw span").hide();
 	$(".guest-pw-check span").hide();
+	$("#guestIdCheckHelp").hide();
 	$("p").hide();
 	$("#guestBtn").click(function(e) {
 		if ($("#guestId").val().length < 4) {
@@ -48,7 +47,13 @@ $(document).ready(function(){
 		}
 	});
 	
+
+	var percentTotal=0;
+	var percentId=0;
+	var percentPw=0;
+	var percentPwCheck=0;
 	$("#guestId").blur(function(){
+		var guestIdCheck;
 		$(".guest-id span").show();
 		if($("#guestId").val().length < 4){
 			$(".guest-id").removeClass("text-success");
@@ -57,7 +62,19 @@ $(document).ready(function(){
 			$(".guest-id").addClass("text-danger");
 			$(".guest-id").addClass("has-error");
 			$(".guest-id span").addClass("glyphicon glyphicon-remove-circle");
+			$(".guest-id p").val("아이디를 4자 이상 입력 해 주세요");
 			$(".guest-id p").show();
+			percentId = 0;
+		} else if(guestIdCheck == 1 ) {
+			$(".guest-id").removeClass("text-success");
+			$(".guest-id").removeClass("has-success");
+			$(".guest-id span").removeClass("glyphicon glyphicon-ok");
+			$(".guest-id").addClass("text-danger");
+			$(".guest-id").addClass("has-error");
+			$(".guest-id span").addClass("glyphicon glyphicon-remove-circle");
+			$(".guest-id p").val("이미 해당 아이디가 존재합니다.");
+			$(".guest-id p").show();
+			percentId = 0;
 		} else {
 			$(".guest-id").removeClass("text-danger");
 			$(".guest-id").removeClass("has-error");
@@ -66,7 +83,10 @@ $(document).ready(function(){
 			$(".input-group span").addClass("glyphicon glyphicon-ok");
 			$(".guest-id").addClass("text-success");
 			$(".guest-id").addClass("has-success");
+			percentId = 33;
 		}
+		percentTotal = percentId+percentPw+percentPwCheck;
+		$(".progress div").width(percentTotal+"%");
 	});
 	
 	$("#guestPw").blur(function(){
@@ -79,6 +99,7 @@ $(document).ready(function(){
 			$(".guest-pw").addClass("has-error");
 			$(".guest-pw span").addClass("glyphicon glyphicon-remove-circle");
 			$(".guest-pw p").show();
+			percentPw = 0;
 		} else {
 			$(".guest-pw").removeClass("text-danger");
 			$(".guest-pw").removeClass("has-error");
@@ -87,7 +108,10 @@ $(document).ready(function(){
 			$(".input-group span").addClass("glyphicon glyphicon-ok");
 			$(".guest-pw").addClass("text-success");
 			$(".guest-pw").addClass("has-success");
+			percentPw = 33;
 		}
+		percentTotal = percentId+percentPw+percentPwCheck;
+		$(".progress div").width(percentTotal+"%");
 	});
 	
 	$("#guestPwCheck").blur(function(){
@@ -100,6 +124,7 @@ $(document).ready(function(){
 			$(".guest-pw-check").addClass("has-error");
 			$(".guest-pw-check span").addClass("glyphicon glyphicon-remove-circle");
 			$(".guest-pw-check p").show();
+			percentPwCheck = 0;
 		} else {
 			$(".guest-pw-check").removeClass("text-danger");
 			$(".guest-pw-check").removeClass("has-error");
@@ -108,7 +133,10 @@ $(document).ready(function(){
 			$(".input-group span").addClass("glyphicon glyphicon-ok");
 			$(".guest-pw-check").addClass("text-success");
 			$(".guest-pw-check").addClass("has-success");
+			percentPwCheck = 34;
 		}
+		percentTotal = percentId+percentPw+percentPwCheck;
+		$(".progress div").width(percentTotal+"%");
 	});
 });
 </script>
@@ -174,7 +202,7 @@ $(document).ready(function(){
 					<span class="input-group-addon"></span>
 					<input type="text" class="form-control" id="guestId" name="guestId" placeholder="이름을 입력해 주세요">
 				</div>
-				<p id="guestIdHelper">아이디를 4자 이상 입력 해 주세요</p>
+				<p></p>
 			</div>
 			<div class="form-group guest-pw">
 				<label>비밀번호</label>
@@ -182,7 +210,7 @@ $(document).ready(function(){
 					<span class="input-group-addon"></span>
 					<input type="password" class="form-control" id="guestPw" name="guestPw" placeholder="비밀번호">
 				</div>
-				<p id="guestPwHelper">비밀번호를 4자 이상 입력 해 주세요</p>
+				<p >비밀번호를 4자 이상 입력 해 주세요</p>
 			</div>
 			<div class="form-group guest-pw-check">
 				<label>비밀번호 확인</label>
@@ -190,7 +218,14 @@ $(document).ready(function(){
 					<span class="input-group-addon"></span>
 					<input type="password" class="form-control" id="guestPwCheck" name="guestPwCheck" placeholder="비밀번호 확인">
 				</div>
-				<p id="guestPwCheckHelper">비밀번호가 일치하지 않습니다</p>
+				<p>비밀번호가 일치하지 않습니다</p>
+			</div>
+			<div class="progress">
+				<div class="progress-bar progress-bar-striped active"
+					role="progressbar" aria-valuenow="0" aria-valuemin="0"
+					aria-valuemax="100" style="width: 0%">
+					<span class="sr-only">0% Complete</span>
+				</div>
 			</div>
 			<div class="form-group text-center">
 				<button type="button" id="guestBtn" class="btn btn-info">회원가입</button>
