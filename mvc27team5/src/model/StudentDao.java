@@ -99,22 +99,23 @@ public class StudentDao {
 		System.out.println("selectOneStudent StudentDao.java");
 		try {
 			connection = DbConnection.dbConn();
-			String sql = "SELECT * FROM student WHERE student_no=?";
+			String sql = "SELECT student_no AS studentNo, student_id AS studentId, student_pw AS studentPw FROM student WHERE student_no=?";
 			statement = connection.prepareStatement(sql);
 			statement.setInt(1, studentNo);
 			resultSet = statement.executeQuery();
 			if(resultSet.next()) {
+				System.out.println("쿼리실행 결과 있는가? selectOneStudent");
 				student = new Student();
-				student.setStudentNo(resultSet.getInt("student_no"));
-				student.setStudentId(resultSet.getString("student_id"));
-				student.setStudentPw(resultSet.getString("student_pw"));
+				student.setStudentNo(resultSet.getInt("studentNo"));
+				student.setStudentId(resultSet.getString("studentId"));
+				student.setStudentPw(resultSet.getString("studentPw"));
+				System.out.println(student + "<-- student selectOneStudent");
 			}
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			if (resultSet != null) try {resultSet.close();} catch (SQLException e) {}
 			if (statement != null) try {statement.close();} catch (SQLException e) {}
 			if (connection != null) try {connection.close();} catch (SQLException e) {}
 		}
@@ -126,16 +127,16 @@ public class StudentDao {
 	//Student 정보를 업데이트
 	public int modifyStudent(Student student) {
 		System.out.println("updateStudent StudentDao.java");
+		int result = 0;
 		try {
 			//Db연결 후 업데이트 하는 쿼리문을 sql에 담아서 쿼리실행을 위하 준비후 셋팅
 			//쿼리실행 후 닫아준다.
 			connection = DbConnection.dbConn();
-			String sql = "UPDATE student SET student_id=?,student_pw=? WHERE student_no=?";
+			String sql = "UPDATE student SET student_pw=? WHERE student_no=?";
 			statement = connection.prepareStatement(sql);
-			statement.setString(1, student.getStudentId());
-			statement.setString(2, student.getStudentPw());
-			statement.setInt(3, student.getStudentNo());
-			statement.executeUpdate();
+			statement.setString(1, student.getStudentPw());
+			statement.setInt(2, student.getStudentNo());
+			statement.executeUpdate();	
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (SQLException e) {
@@ -145,7 +146,7 @@ public class StudentDao {
 			if (connection != null) try {connection.close();} catch (SQLException e) {}
 		}
 		
-		return 0;
+		return result;
 	}
 	
 	}

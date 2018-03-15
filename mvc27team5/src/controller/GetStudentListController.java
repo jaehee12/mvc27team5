@@ -25,7 +25,5 @@ public class GetStudentListController extends HttpServlet {
 		
 	}
 
-	
-
 }
 
