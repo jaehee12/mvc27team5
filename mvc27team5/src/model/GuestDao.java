@@ -16,14 +16,14 @@ public class GuestDao {
 		PreparedStatement statement = null;
 		ResultSet resultSet = null;
 		int result = 0;
-		String sql = "UPDATE guest SET guest_id = ?, guest_pw = ? WHERE guest_no = ?";
+		String sql = "UPDATE guest SET guest_pw = ? WHERE guest_no = ?";
 		
 		try {
 			connection = DbConnection.dbConn();
 			statement = connection.prepareStatement(sql);
-			statement.setString(1, guest.getGuestId());
-			statement.setString(2, guest.getGuestPw());
-			statement.setInt(3, guest.getGuestNo());
+			statement.setString(1, guest.getGuestPw());
+			statement.setInt(2, guest.getGuestNo());
+			System.out.println(statement);
 			result = statement.executeUpdate();
 		} catch(ClassNotFoundException e) {
 			e.printStackTrace();
@@ -49,6 +49,7 @@ public class GuestDao {
 			statement.setInt(1, guestNo);
 			resultSet = statement.executeQuery();
 			if(resultSet.next()) {
+				guest.setGuestNo(resultSet.getInt("guestNo"));
 				guest.setGuestId(resultSet.getString("guestId"));
 				guest.setGuestPw(resultSet.getString("guestPw"));
 			}
