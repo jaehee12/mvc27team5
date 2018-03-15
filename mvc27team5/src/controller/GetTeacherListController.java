@@ -1,25 +1,31 @@
+/*[유국화]*/
 package controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import model.Teacher;
 import model.TeacherDao;
 
 @WebServlet("/getTeacherList.jjdev")
 public class GetTeacherListController extends HttpServlet {
 	private TeacherDao teacherDao;
+	private ArrayList<Teacher> list;
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// request
-		// Teacher DAO
+		System.out.println("---doGet GetTeacherListController controller---");
 		teacherDao = new TeacherDao();
-		request.setAttribute("list", teacherDao.selectAllTeacher());
-		// request
-		// forward
+		list = new ArrayList<Teacher>();
+		// DAO -> list 출력하는 메서드 호출
+		list = teacherDao.selectAllTeacher();
+		// request 객체에 list 셋팅
+		request.setAttribute("list", list);
 		request.getRequestDispatcher("/WEB-INF/views/getTeacherList.jsp").forward(request, response);
 	}
-
 }
