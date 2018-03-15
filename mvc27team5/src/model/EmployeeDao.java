@@ -12,6 +12,58 @@ import db.DbConnection;
 
 public class EmployeeDao {
 	
+	public Employee selectForUpdate(int employeeNo) {
+		PreparedStatement statement = null;
+		ResultSet resultSet = null;
+		Connection connection = null;
+		Employee employee = new Employee();
+		String sql = "SELECT employee_no AS employeeNo, employee_id AS employeeId, employee_pw AS employeePw FROM employee WHERE employee_no = ?";
+		
+		try {
+			connection = DbConnection.dbConn();
+			statement = connection.prepareStatement(sql);
+			statement.setInt(1, employeeNo);
+			resultSet = statement.executeQuery();
+			if(resultSet.next()) {
+				employee.setEmployeeNo(resultSet.getInt("employeeNo"));
+				employee.setEmployeeId(resultSet.getString("employeeId"));
+				employee.setEmployeePw(resultSet.getString("employeePw"));
+			}
+		} catch(ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch(SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if(statement != null) try { statement.close(); } catch(SQLException ex) { }
+			if(connection != null) try { connection.close(); } catch(SQLException ex) { }
+		}
+		return employee; 
+	}
+	
+	public int updateEmployee(Employee employee) {
+		Connection connection = null;
+		PreparedStatement statement = null;
+		ResultSet resultSet = null;
+		int result = 0;
+		String sql = "UPDATE employee SET employee_pw = ? WHERE employee_no = ?";
+		
+		try {
+			connection = DbConnection.dbConn();
+			statement = connection.prepareStatement(sql);
+			statement.setString(1, employee.getEmployeePw());
+			statement.setInt(2, employee.getEmployeeNo());
+			result = statement.executeUpdate();
+		} catch(ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch(SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if(statement != null) try { statement.close(); } catch(SQLException ex) { }
+			if(connection != null) try { connection.close(); } catch(SQLException ex) { }
+		}
+		return result;
+	}
+	
 	public int insertEmployee(Employee employee){
 		Connection connection = null;
 		PreparedStatement statement = null;

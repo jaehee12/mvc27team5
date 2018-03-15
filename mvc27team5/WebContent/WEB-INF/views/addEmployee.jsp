@@ -11,13 +11,13 @@
 	<script>
 		$(document).ready(function(){
 			$("#addbutton").click(function(){				
-				if($("#employeeID").val().length < 4){					
+				if($("#employeeId").val().length < 4){					
 					return ;
-				}else if($("#employeePW").val().length < 4){					
+				}else if($("#employeePw").val().length < 4){					
 					return ;						
-				}else if($("#employeePW_check").val().length < 4){					
+				}else if($("#employeePw_check").val().length < 4){					
 					return ;
-				}else if($("#employeePW").val() != $("#employeePW_check").val()){							
+				}else if($("#employeePw").val() != $("#employeePw_check").val()){							
 					return ;
 				}else{		
 					$("#addEmployee").submit();			
@@ -29,9 +29,9 @@
 <body>
 	<h1>addEmployee</h1>
 	<form id="addEmployee" method="post" action="<%= request.getContextPath() %>/addEmployee.jjdev"> <!-- 액션 : 폼을 받을 주소 -->
-		아이디 : <input type = "text" id="employeeID" name="employeeID"><br>
-		비밀번호 : 	<input type = "password" id="employeePW" name="employeePW"><br>
-		비밀번호 확인 : 	<input type = "password" id="employeePW_check" name="employeePW_check"><br>
+		아이디 : <input type = "text" id="employeeId" name="employeeId"><br>
+		비밀번호 : 	<input type = "password" id="employeePw" name="employeePw"><br>
+		비밀번호 확인 : 	<input type = "password" id="employeePw_check" name="employeePw_check"><br>
 		<input type="reset" value="다시입력">	<button type="button" id="addbutton">등록</button>
 	</form>
 </body>

@@ -1,4 +1,4 @@
-/*[백지훈]*/
+/*[������]*/
 package controller;
 
 import java.io.IOException;
@@ -14,11 +14,12 @@ import model.GuestDao;
 
 @WebServlet("/getEmployeeList.jjdev")
 public class GetEmployeeListController extends HttpServlet {
+	private EmployeeDao employeeDao;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		EmployeeDao employeeDao = new EmployeeDao();
-		request.setAttribute("list", employeeDao.selectEmployee());
 		
+		request.setAttribute("list", employeeDao.selectEmployee());
 		request.getRequestDispatcher("/WEB-INF/views/getEmployeeList.jsp").forward(request, response);
 	}
 }

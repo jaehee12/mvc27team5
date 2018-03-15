@@ -28,6 +28,7 @@
 					<th>직원 비번</th>
 					<th>수정</th>
 					<th>삭제</th>
+					<th>주소</th>
 					
 				</tr>
 			</thead>
@@ -39,8 +40,9 @@
 						<td><%= employee.getEmployeeNo() %></td>
 						<td><%= employee.getEmployeeId() %></td>
 						<td><%= employee.getEmployeePw() %></td>
-						<td><a href="#">수정</a></td>
-						<td><a href="#">삭제</a></td>
+						<td><a href="<%= request.getContextPath() %>/modifyEmployee.jjdev?employeeNo=<%= employee.getEmployeeNo() %>">수정</a></td>
+						<td><a href="<%= request.getContextPath() %>/removeEmployee.jjdev?employeeNo=<%= employee.getEmployeeNo() %>">삭제</a></td>
+						<td><a href="<%= request.getContextPath() %>/addEmployeeAddr.jjdev?employeeNo=<%= employee.getEmployeeNo() %>">주소추가</a></td>
 					</tr>
 				<%
 				}
