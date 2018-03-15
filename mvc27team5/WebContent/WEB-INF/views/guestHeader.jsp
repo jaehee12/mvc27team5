@@ -52,9 +52,26 @@ $(document).ready(function(){
 			$("#guestAddrForm").submit();
 		}
 	});
+	//아래서 원래 사용하던 코드의 내용이중복되기때문에, 함수형태로 만들어줬다. 이건 나중에 keyup이벤트할때도 쓸것임!
+	var guestSuccess = function(guestSuccessForm){
+		guestSuccessForm.removeClass("text-danger");
+		guestSuccessForm.removeClass("has-error");
+		guestSuccessForm.find("span").removeClass("glyphicon glyphicon-remove-circle");
+		guestSuccessForm.find("p").hide();
+		guestSuccessForm.find("span").addClass("glyphicon glyphicon-ok");
+		guestSuccessForm.addClass("text-success");
+		guestSuccessForm.addClass("has-success");
+	}
 	
-	
-	
+	var guestFail = function(guestFailForm){
+		guestFailForm.removeClass("text-success");
+		guestFailForm.removeClass("has-success");
+		guestFailForm.find("span").removeClass("glyphicon glyphicon-ok");
+		guestFailForm.addClass("text-danger");
+		guestFailForm.addClass("has-error");
+		guestFailForm.find("span").addClass("glyphicon glyphicon-remove-circle");
+		guestFailForm.find("p").show();
+	}
 	
 	
 	var percentTotal=0;
@@ -73,22 +90,10 @@ $(document).ready(function(){
 			}
 		); */
 		if($("#guestId").val().length < 4){
-			$(".guest-id").removeClass("text-success");
-			$(".guest-id").removeClass("has-success");
-			$(".guest-id span").removeClass("glyphicon glyphicon-ok");
-			$(".guest-id").addClass("text-danger");
-			$(".guest-id").addClass("has-error");
-			$(".guest-id span").addClass("glyphicon glyphicon-remove-circle");
-			$(".guest-id p").show();
+			guestFail($(".guest-id"));
 			percentId = 0;
 		} else {
-			$(".guest-id").removeClass("text-danger");
-			$(".guest-id").removeClass("has-error");
-			$(".guest-id span").removeClass("glyphicon glyphicon-remove-circle");
-			$(".guest-id p").hide();
-			$(".input-group span").addClass("glyphicon glyphicon-ok");
-			$(".guest-id").addClass("text-success");
-			$(".guest-id").addClass("has-success");
+			guestSuccess($(".guest-id"));
 			percentId = 33;
 		}
 		//이거는 blur마다 있는데, 이부분 함수호출로 변경 해줘야할것같다.
@@ -99,22 +104,10 @@ $(document).ready(function(){
 	$("#guestPw").blur(function(){
 		$(".guest-pw span").show();
 		if($("#guestPw").val().length < 4){
-			$(".guest-pw").removeClass("text-success");
-			$(".guest-pw").removeClass("has-success");
-			$(".guest-pw span").removeClass("glyphicon glyphicon-ok");
-			$(".guest-pw").addClass("text-danger");
-			$(".guest-pw").addClass("has-error");
-			$(".guest-pw span").addClass("glyphicon glyphicon-remove-circle");
-			$(".guest-pw p").show();
+			guestFail($(".guest-pw"));
 			percentPw = 0;
 		} else {
-			$(".guest-pw").removeClass("text-danger");
-			$(".guest-pw").removeClass("has-error");
-			$(".guest-pw span").removeClass("glyphicon glyphicon-remove-circle");
-			$(".guest-pw p").hide();
-			$(".input-group span").addClass("glyphicon glyphicon-ok");
-			$(".guest-pw").addClass("text-success");
-			$(".guest-pw").addClass("has-success");
+			guestSuccess($(".guest-pw"));
 			percentPw = 33;
 		}
 		percentTotal = percentId+percentPw+percentPwCheck;
@@ -124,22 +117,10 @@ $(document).ready(function(){
 	$("#guestPwCheck").blur(function(){
 		$(".guest-pw-check span").show();
 		if(($("#guestPw").val() != $("#guestPwCheck").val()) || ($("#guestPwCheck").val().length < 4)){
-			$(".guest-pw-check").removeClass("text-success");
-			$(".guest-pw-check").removeClass("has-success");
-			$(".guest-pw-check span").removeClass("glyphicon glyphicon-ok");
-			$(".guest-pw-check").addClass("text-danger");
-			$(".guest-pw-check").addClass("has-error");
-			$(".guest-pw-check span").addClass("glyphicon glyphicon-remove-circle");
-			$(".guest-pw-check p").show();
+			guestFail($(".guest-pw-check"));
 			percentPwCheck = 0;
 		} else {
-			$(".guest-pw-check").removeClass("text-danger");
-			$(".guest-pw-check").removeClass("has-error");
-			$(".guest-pw-check span").removeClass("glyphicon glyphicon-remove-circle");
-			$(".guest-pw-check p").hide();
-			$(".input-group span").addClass("glyphicon glyphicon-ok");
-			$(".guest-pw-check").addClass("text-success");
-			$(".guest-pw-check").addClass("has-success");
+			guestSuccess($(".guest-pw-check"));
 			percentPwCheck = 34;
 		}
 		percentTotal = percentId+percentPw+percentPwCheck;
