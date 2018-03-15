@@ -11,8 +11,8 @@ import model.StudentDao;
 
 
 @WebServlet("/removeStudent.jjdev")
-public class DeleteStudentController extends HttpServlet {
-	/*private StudentDao studentDao;*/
+public class RemoveStudentController extends HttpServlet {
+	private StudentDao studentDao;
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("doGet DeleteStudentController.java");
@@ -20,8 +20,9 @@ public class DeleteStudentController extends HttpServlet {
 		System.out.println(studentNo + "<--studentNo DeleteStudentController.java");
 		
 		StudentDao studentDao = new StudentDao();
-		studentDao.deleteStudent(studentNo);
+		studentDao.removeStudent(studentNo);
 		response.sendRedirect(request.getContextPath() + "/getStudentList.jjdev");
+		
 	}
 
 

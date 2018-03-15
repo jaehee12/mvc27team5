@@ -74,7 +74,7 @@ public class StudentDao {
 
 	
 	//Student 삭제
-	public int deleteStudent(int studentNo) {//Student student
+	public int removeStudent(int studentNo) {//Student student
 		System.out.println("deleteStudent StudentDao.java");
 		try {
 			connection = DbConnection.dbConn();
@@ -102,7 +102,13 @@ public class StudentDao {
 			String sql = "SELECT * FROM student WHERE student_no=?";
 			statement = connection.prepareStatement(sql);
 			statement.setInt(1, studentNo);
-			statement.executeQuery();
+			resultSet = statement.executeQuery();
+			if(resultSet.next()) {
+				student = new Student();
+				student.setStudentNo(resultSet.getInt("student_no"));
+				student.setStudentId(resultSet.getString("student_id"));
+				student.setStudentPw(resultSet.getString("student_pw"));
+			}
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (SQLException e) {
@@ -112,15 +118,13 @@ public class StudentDao {
 			if (statement != null) try {statement.close();} catch (SQLException e) {}
 			if (connection != null) try {connection.close();} catch (SQLException e) {}
 		}
-		
-		
-		return null;
+		return student;
 	}
 	
 	
 	
 	//Student 정보를 업데이트
-	public int updateStudent(Student student) {
+	public int modifyStudent(Student student) {
 		System.out.println("updateStudent StudentDao.java");
 		try {
 			//Db연결 후 업데이트 하는 쿼리문을 sql에 담아서 쿼리실행을 위하 준비후 셋팅

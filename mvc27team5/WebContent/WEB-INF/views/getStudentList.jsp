@@ -12,12 +12,12 @@
 	<h1>Student List</h1>
 	<table>
 		<thead>
-			<th>Student_No</th>
-			<th>Student_Id</th>
-			<th>Student_Pw</th>
+			<th>학생 순서</th>
+			<th>학생 이름</th>
+			<th>학생 비번</th>
 			<th>수정</th><!-- 넘버값을  ?studentNo 로 넘긴다 / StudentDao.updateStudent() -->
 			<th>삭제</th><!-- StudentDao.deleteStudent() -->
-			<th>ADD STUDENT_ADDR</th><!-- StudentAddrDao.insertStudentAddr -->
+			<th>학생 주소록 추가</th><!-- StudentAddrDao.insertStudentAddr -->
 		</thead>
 		<tbody>
 			<%

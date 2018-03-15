@@ -8,13 +8,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @WebServlet("/modifyStudent.jjdev")
-public class UpdateStudentController extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-
+public class ModifyStudentProController extends HttpServlet {
+       
+ 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("doGet UpdateStudentController.java");
-		
-		
+		System.out.println("doGet UpdateStudentProController.java");
+	}
+
+	
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("doPost UpdateStudentProController.java");
 	}
 
 }

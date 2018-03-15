@@ -45,7 +45,7 @@
 	        <form accept-charset="UTF-8" id="studentInsertForm" method="post" action="<%= request.getContextPath()%>/addStudent.jjdev">
 	            <legend>Student Insert</legend>
 	            <div class="form-group">
-	                <label for="username-email">Student ID</label>
+	                <label for="username-email">학생 아이디</label>
 	                <input name="studentId" value='' id="studentId" placeholder="Enter ID" type="text" class="form-control" />
 	            </div>
 	            
