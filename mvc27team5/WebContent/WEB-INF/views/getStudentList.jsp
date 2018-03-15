@@ -1,12 +1,42 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!-- [김재희] -->
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import = "java.util.ArrayList" %>
+<%@ page import = "model.Student" %> 
+<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
-<title>Insert title here</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>getStudentList</title>
 </head>
 <body>
-Student
+	<h1>Student List</h1>
+	<table>
+		<thead>
+			<th>Student_No</th>
+			<th>Student_Id</th>
+			<th>Student_Pw</th>
+			<th>수정</th><!-- 넘버값을  ?studentNo 로 넘긴다 / StudentDao.updateStudent() -->
+			<th>삭제</th><!-- StudentDao.deleteStudent() -->
+			<th>ADD STUDENT_ADDR</th><!-- StudentAddrDao.insertStudentAddr -->
+		</thead>
+		<tbody>
+			<%
+				ArrayList<Student> list = (ArrayList<Student>)request.getAttribute("list");
+				for(Student student : list) {
+			%>
+					<tr>
+						<td><%=student.getStudentNo() %></td>
+						<td><%=student.getStudentId() %></td>
+						<td>****</td><!-- 비밀번호 아예가지고 오지 말기 셀렉트에 넣지 말기 -->
+						<td><a href="<%= request.getContextPath()%>/modifyStudent.jjdev?studentNo=<%= student.getStudentNo()%>">수정</a></td>
+						<td><a href="<%= request.getContextPath()%>/removeStudent.jjdev?studentNo=<%= student.getStudentNo()%>">삭제</a></td>
+						<td><a href="<%= request.getContextPath()%>/addStudentAddr.jjdev?studentNo=<%= student.getStudentNo()%>">주소추가</a></td>
+					</tr>
+			<%
+			
+				}
+			%>
+		</tbody>
+	</table>
 </body>
 </html>
