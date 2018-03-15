@@ -12,6 +12,28 @@ import db.DbConnection;
 
 public class EmployeeDao {
 	
+	public int deleteEmployee(int employeeNo) {
+		Connection connection = null;
+		PreparedStatement statement = null;
+		ResultSet resultSet = null;
+		int result = 0;
+		String sql = " DELETE FROM employee WHERE employee_no = ? ";
+		try {
+			connection = DbConnection.dbConn();
+			statement = connection.prepareStatement(sql);
+			statement.setInt(1, employeeNo);
+			result = statement.executeUpdate();
+		}catch(ClassNotFoundException e) {
+			e.printStackTrace();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			if(statement != null) try { statement.close(); } catch(SQLException ex) {}
+			if(connection != null) try { connection.close(); } catch(SQLException ex) {}
+		}
+		return result;
+	}
+
 	public Employee selectForUpdate(int employeeNo) {
 		PreparedStatement statement = null;
 		ResultSet resultSet = null;
