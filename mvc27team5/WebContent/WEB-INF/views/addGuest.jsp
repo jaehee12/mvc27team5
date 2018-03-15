@@ -16,7 +16,7 @@
 					<span class="input-group-addon"></span>
 					<input type="text" class="form-control" id="guestId" name="guestId" placeholder="이름을 입력해 주세요">
 				</div>
-				<p>아이디를 4자 이상 입력 해 주세요</p>
+				<p></p>
 			</div>
 			<div class="form-group guest-pw">
 				<label>비밀번호</label>

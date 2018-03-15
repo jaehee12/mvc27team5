@@ -45,6 +45,7 @@ $(document).ready(function(){
 		}
 	});
 	
+	//이거는 주소추가를 실행해서 그안에 데이터넣고했을때 문자길이가지고 비교해서 submit해주는거
 	$("#guestAddrBtn").click(function(e) {
 		if($("#guestAddr").val().length < 3){
 			
@@ -72,23 +73,44 @@ $(document).ready(function(){
 		guestFailForm.find("span").addClass("glyphicon glyphicon-remove-circle");
 		guestFailForm.find("p").show();
 	}
-	
-	
 	var percentTotal=0;
 	var percentId=0;
 	var percentPw=0;
 	var percentPwCheck=0;
-	$("#guestId").blur(function(){
-		var guestIdCheck;
-		$(".guest-id span").show();
-/* 		$.post("guestIdCheck.jk",
+	
+	var percentMerge = function(){
+		percentTotal = percentId+percentPw+percentPwCheck;
+		$(".progress div").width(percentTotal+"%");
+	}
+	
+	//ajax로 키를 누를때만다 해당 함수를 비동기호출하여, 리턴값을통해 아이디가 존재하는지 하지않는지를 추출하려고함.
+	$("#guestId").keyup(function(){
+		$.post("guestIdCheck.jk",
 			{
 				guestId: $("#guestId").val(),
 			},
 			function(data, status){
-				guestIdCheck = data;
+				$(".guest-id span").show();
+				if($("#guestId").val().length < 4){
+					$(".guest-id").find("p").text("아이디를 4자 이상 입력 해 주세요.");
+					guestFail($(".guest-id"));
+					percentId = 0;
+				} else if(data == 1){
+					$(".guest-id").find("p").text("이미 존재하는 이름 입니다.");
+					guestFail($(".guest-id"));
+					percentId = 0;
+				} else{
+					guestSuccess($(".guest-id"));
+					percentId = 33;
+				}
+				percentMerge();
 			}
-		); */
+		);
+	});
+	
+// 이걸 지운 이유는 keyup이벤트와 blur이벤트가 중복으로 사용되었을때, blur이 나중에 일어나기때문에 keyup에서 중복에대한 데이터처리를
+/* 	$("#guestId").blur(function(){
+		$(".guest-id span").show();
 		if($("#guestId").val().length < 4){
 			guestFail($(".guest-id"));
 			percentId = 0;
@@ -97,9 +119,8 @@ $(document).ready(function(){
 			percentId = 33;
 		}
 		//이거는 blur마다 있는데, 이부분 함수호출로 변경 해줘야할것같다.
-		percentTotal = percentId+percentPw+percentPwCheck;
-		$(".progress div").width(percentTotal+"%");
-	});
+		percentMerge();
+	}); */
 	
 	$("#guestPw").blur(function(){
 		$(".guest-pw span").show();
@@ -110,8 +131,7 @@ $(document).ready(function(){
 			guestSuccess($(".guest-pw"));
 			percentPw = 33;
 		}
-		percentTotal = percentId+percentPw+percentPwCheck;
-		$(".progress div").width(percentTotal+"%");
+		percentMerge();
 	});
 	
 	$("#guestPwCheck").blur(function(){
@@ -123,9 +143,7 @@ $(document).ready(function(){
 			guestSuccess($(".guest-pw-check"));
 			percentPwCheck = 34;
 		}
-		percentTotal = percentId+percentPw+percentPwCheck;
-		$(".progress div").width(percentTotal+"%");
+		percentMerge();
 	});
 });
-
 </script>
