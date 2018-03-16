@@ -1,3 +1,4 @@
+/*[김재희]*/
 package controller;
 
 import java.io.IOException;
@@ -11,7 +12,7 @@ import model.Student;
 import model.StudentDao;
 
 @WebServlet("/modifyStudent.jjdev")
-public class ModifyStudentController extends HttpServlet {
+public class ModifyStudent extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("doGet ModifyStudentController.java");
 		

@@ -1,4 +1,4 @@
-// [김재희]
+/*[김재희]*/
 package controller;
 
 import java.io.IOException;
@@ -10,15 +10,13 @@ import javax.servlet.http.HttpServletResponse;
 
 import model.StudentDao;
 
-
 @WebServlet("/removeStudent.jjdev")
-public class RemoveStudentController extends HttpServlet {
+public class RemoveStudent extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("doGet RemoveStudentController.java");
 		int studentNo = Integer.parseInt(request.getParameter("studentNo"));
-		System.out.println(studentNo + "<-- studentNo RemoveStudentController.java");
-		
+		System.out.println(studentNo + "<-- studentNo RemoveStudent.java");
 		StudentDao studentDao = new StudentDao();
 		studentDao.removeStudent(studentNo);
 		response.sendRedirect(request.getContextPath() + "/getStudentList.jjdev");

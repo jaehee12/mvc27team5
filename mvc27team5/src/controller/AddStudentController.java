@@ -1,4 +1,4 @@
-// [김재희]
+/*[김재희]*/
 package controller;
 
 import java.io.IOException;
@@ -24,12 +24,10 @@ public class AddStudentController extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		String studentId = request.getParameter("studentId");
 		String studentPw = request.getParameter("studentPw");
-		
 		/*Student의 객체를 생성 하고 student참조변수 주소를 찾아 set메서드를 실행해 정보들을 담은 매개변수인 studentId를 셋팅한다.*/
 		Student student = new Student();
 		student.setStudentId(studentId);
 		student.setStudentPw(studentPw);
-		
 		/*StudentDao의 객체생성후 studentDao의 주소를 찾아 student를 매개변수로 insertStudent메소드를 실행해 학생들의 아이디,비번등을 db에 연결하고 추가한다.
 		 *추가해준뒤 리스트로 리다이렉트 해준다. */
 		StudentDao studentDao = new StudentDao();

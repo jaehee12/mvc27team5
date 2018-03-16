@@ -1,4 +1,4 @@
-// [김재희]
+/*[김재희]*/
 package controller;
 
 import java.io.IOException;
@@ -22,7 +22,6 @@ public class GetStudentListController extends HttpServlet {
 		ArrayList<Student> list = studentDao.selectStudentlist();
 		request.setAttribute("list", list);
 		request.getRequestDispatcher("/WEB-INF/views/getStudentList.jsp").forward(request, response);
-		
 	}
 
 }

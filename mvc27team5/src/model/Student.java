@@ -1,4 +1,4 @@
-// [김재희]
+/*[김재희]*/
 package model;
 
 public class Student {

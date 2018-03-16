@@ -30,7 +30,7 @@
 						<td>****</td><!-- 비밀번호 아예가지고 오지 말기 셀렉트에 넣지 말기 -->
 						<td><a href="<%= request.getContextPath()%>/modifyStudent.jjdev?studentNo=<%= student.getStudentNo()%>">수정</a></td>
 						<td><a href="<%= request.getContextPath()%>/removeStudent.jjdev?studentNo=<%= student.getStudentNo()%>">삭제</a></td>
-						<td><a href="<%= request.getContextPath()%>/addStudentAddr.jjdev?studentNo=<%= student.getStudentNo()%>">주소추가</a></td>
+						<td><a href="<%= request.getContextPath()%>/getStudentAddrList.jjdev?studentNo=<%= student.getStudentNo()%>">주소추가</a></td>
 					</tr>
 			<%
 			

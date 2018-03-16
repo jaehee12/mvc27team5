@@ -1,4 +1,4 @@
-// [김재희]
+/*[김재희]*/
 package model;
 
 import java.sql.Connection;
@@ -10,16 +10,17 @@ import java.util.ArrayList;
 import db.DbConnection;
 
 public class StudentAddrDao {
-	Connection connection = null;
-	PreparedStatement statement = null;
-	ResultSet resultSet = null;
-	StudentAddr studentAddr = null;
 	
 	// 학생 주소추가 
+	// insertStudentAddr가 무슨 메서드인지 매개변수
 	public int insertStudentAddr(StudentAddr studentAddr) {
+		Connection connection = null;
+		PreparedStatement statement = null;
 		int result = 0;
 		try {
+			//db연결 및 드라이버 로딩
 			connection = DbConnection.dbConn();
+			//String 타입의 변수 sql에 insert쿼리문을 넣는다.   
 			String sql = "INSERT INTO student_addr (student_no, address)  VALUES(?, ?)";
 			statement = connection.prepareStatement(sql);
 			statement.setInt(1, studentAddr.getStudentNo());
@@ -39,7 +40,11 @@ public class StudentAddrDao {
 	}
 
 	// 학생 주소록의 리스트조회
-	public ArrayList<StudentAddr> selectStudentList() {
+	public ArrayList<StudentAddr> selectStudentAddrList() {
+		Connection connection = null;
+		PreparedStatement statement = null;
+		ResultSet resultSet = null;
+		StudentAddr studentAddr = null;
 		ArrayList<StudentAddr> list = new ArrayList<StudentAddr>();
 		try {
 			connection = DbConnection.dbConn();
@@ -63,5 +68,11 @@ public class StudentAddrDao {
 		}
 		
 		return list;
+	}
+	
+	
+	public int removeStudentAddr(int studentAddrNo) {
+		
+		return 0;
 	}
 }
