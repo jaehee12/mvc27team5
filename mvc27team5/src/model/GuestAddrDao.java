@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import db.DbConnection;
 
@@ -33,4 +34,68 @@ public class GuestAddrDao {
 		}
 		return result;
 	}
+	
+	public ArrayList<GuestAddr> selectAllAddr(int guestNo){
+		ArrayList<GuestAddr> list = new ArrayList<GuestAddr>();
+		Connection connection = null;
+		PreparedStatement statement = null;
+		ResultSet resultSet = null;
+		String sql = "SELECT guest_addr_no AS guestAddrNo, guest_no as guestNo, address from guest_addr where guest_no = ?";
+		
+		try {
+			connection = DbConnection.dbConn();
+			statement = connection.prepareStatement(sql);
+			statement.setInt(1, guestNo);
+			resultSet = statement.executeQuery();
+			
+			while(resultSet.next()) {
+				GuestAddr guestAddr = new GuestAddr();
+				guestAddr.setGuestAddrNo(resultSet.getInt("guestAddrNo"));
+				guestAddr.setGuestNo(resultSet.getInt("guestNo"));
+				guestAddr.setAddress(resultSet.getString("address"));
+				list.add(guestAddr);
+			}
+			
+		} catch(ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch(SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if(resultSet != null) try { resultSet.close(); } catch(SQLException ex) { }
+			if(statement != null) try { statement.close(); } catch(SQLException ex) { }
+			if(connection != null) try { connection.close(); } catch(SQLException ex) { }
+		}
+		return list;
+	}
+	
+	public int maxAddrCount(int guestNo){
+		ArrayList<GuestAddr> list = new ArrayList<GuestAddr>();
+		Connection connection = null;
+		PreparedStatement statement = null;
+		ResultSet resultSet = null;
+		int result = 0;
+		String sql = "SELECT count(*) AS guestCount from guest_addr where guest_no = ?";
+		
+		try {
+			connection = DbConnection.dbConn();
+			statement = connection.prepareStatement(sql);
+			statement.setInt(1, guestNo);
+			resultSet = statement.executeQuery();
+			
+			if(resultSet.next()) {
+				result = resultSet.getInt("guestCount");
+			}
+			
+		} catch(ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch(SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if(resultSet != null) try { resultSet.close(); } catch(SQLException ex) { }
+			if(statement != null) try { statement.close(); } catch(SQLException ex) { }
+			if(connection != null) try { connection.close(); } catch(SQLException ex) { }
+		}
+		return result;
+	}
+	
 }

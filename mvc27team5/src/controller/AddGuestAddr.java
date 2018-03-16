@@ -2,6 +2,8 @@
 package controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -15,15 +17,17 @@ import model.GuestDao;
 
 @WebServlet("/addGuestAddr.jk")
 public class AddGuestAddr extends HttpServlet {
-
+	private GuestAddrDao gAddrDao;
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		GuestAddr guestAddr = new GuestAddr();
+		gAddrDao = new GuestAddrDao();
+		ArrayList<GuestAddr> list = gAddrDao.selectAllAddr(Integer.parseInt(request.getParameter("guestNo")));
+		request.setAttribute("list", list);
 		//web-inf안에있기때문에 이렇게 접근해야함.
-		request.setAttribute("guestNo", request.getParameter("guestNo"));
 		request.getRequestDispatcher("/WEB-INF/views/addGuestAddr.jsp").forward(request, response);
 	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		GuestAddrDao gAddrDao = new GuestAddrDao();
+		gAddrDao = new GuestAddrDao();
 		GuestAddr guestAddr = new GuestAddr();
 		//해당 request의 인코딩을 DB와 맞춰주지않으면, 한글이 깨지기 때문에, 치환시켜준다.
 		request.setCharacterEncoding("UTF-8");
