@@ -15,10 +15,10 @@
 %>
 <body>
 	<form method="post" action="<%= request.getContextPath() %>/modifyTeacher.jjdev">
-				<input type = "hidden" id="teacherNo">
-		아이디 : 	<input type = "text" id="teacherId" value=<%= teacher.getTeacherId() %> readonly>
-		비밀번호 : <input type = "text" id="teacherPw" value=<%= teacher.getTeacherPw() %> >
-		주소 : 	<input type = "text" id="teacherAddr">
+				<input type = "hidden" id="teacherNo" name="teacherNo">
+		아이디 : 	<input type = "text" id="teacherId" name="teacherId" value=<%= teacher.getTeacherId() %> readonly>
+		비밀번호 : <input type = "text" id="teacherPw" name="teacherPw" value=<%= teacher.getTeacherPw() %> >
+		주소 : 	<input type = "text" id="teacherAddr" name="teacherAddr">
 		<input type = "submit" value="수정완료">	
 	</form>
 </body>

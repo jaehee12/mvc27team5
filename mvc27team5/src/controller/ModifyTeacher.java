@@ -43,7 +43,6 @@ public class ModifyTeacher extends HttpServlet {
 		tdao = new TeacherDao();
 		tdao.updateTeacher(teacher);
 		// 수정처리 후 뷰는 리스트로 리다이렉트
-		response.sendRedirect(request.getContextPath()+"/getTeacherList.jjdev");
-		
+		response.sendRedirect(request.getContextPath()+"/getTeacherList.jjdev");	
 	}
 }
