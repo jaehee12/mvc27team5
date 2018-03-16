@@ -34,7 +34,7 @@ public class AddStudentController extends HttpServlet {
 		 *추가해준뒤 리스트로 리다이렉트 해준다. */
 		StudentDao studentDao = new StudentDao();
 		studentDao.insertStudent(student);
-		response.sendRedirect(request.getContextPath() + "/getStudentList.jjdev");
+		response.sendRedirect(request.getContextPath() + "/getStudentAddrList.jjdev");
 		
 		
 	}
