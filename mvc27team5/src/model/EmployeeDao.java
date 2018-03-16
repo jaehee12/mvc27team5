@@ -63,6 +63,7 @@ public class EmployeeDao {
 	}
 	
 	public int updateEmployee(Employee employee) {
+		System.out.println("오냐?");
 		Connection connection = null;
 		PreparedStatement statement = null;
 		ResultSet resultSet = null;
