@@ -48,7 +48,7 @@ $(document).ready(function(){
 	
 	//이거는 주소추가를 실행해서 그안에 데이터넣고했을때 문자길이가지고 비교해서 submit해주는거
 	$("#guestAddrBtn").click(function(e) {
-		if($("#guestAddr").val().length < 3){
+		if($("#guestAddress").val().length < 3){
 			
 		} else{
 			$("#guestAddrForm").submit();
@@ -146,32 +146,6 @@ $(document).ready(function(){
 		}
 		percentMerge();
 	});
-	
-	//여기는 일단 + 버튼 클릭하면 주소 적는 input하나 늘려주려고 만들어놓은것.
-	$("#guestAddrPlus").click(function(){
-		//sibiling은 자신과 위치가 같은 형제들을가져오는거고 length로 형제의 갯수를 가져온다.
-		var addrCount = $("#guestAddrPlus").siblings("div").length;
-		console.log(addrCount);
-		var plusAddr;
-		//만약 추가를누르다가 7이하, 즉 input박스가 5가 넘으면 +버튼을 안보이게하려고 조건절을 이렇게 두었다.
-		if(addrCount < 6){
-			plusAddr = $("#guestAddrPlus").siblings(".address-clone").clone();
-			plusAddr.find("input").val("");
-			plusAddr.removeClass("address-clone");
-			plusAddr.find(".glyphicon-minus").addClass("removeSpan");
-			$("#guestAddrPlus").before(plusAddr);
-		}
-		//if문을 여기로 뺀 이유는 else if로 하게되면 input박스가 5개가 되어도 plus버튼이 바로 사라지지않고 , 한번 더 눌러야 사라지기때문에!
-		if(addrCount == 5){
-			$("#guestAddrPlus").hide();
-		}
-	});
-	
-	$(".removeSpan").click(function(){
-		console.log("test");
-		$(this).remove();
-	});
-	
 	
 	
 });

@@ -35,7 +35,7 @@
 						<td>****</td>
 						<td><a href="<%= request.getContextPath() %>/modifyGuest.jk?guestNo=<%= guest.getGuestNo() %>">수정</a></td>
 						<td><a href="<%= request.getContextPath() %>/removeGuest.jk?guestNo=<%= guest.getGuestNo() %>">삭제</a></td>
-						<td><a href="<%= request.getContextPath() %>/addGuestAddr.jk?guestNo=<%= guest.getGuestNo() %>">주소추가</a></td>
+						<td><a href="<%= request.getContextPath() %>/getGuestAddrList.jk?guestNo=<%= guest.getGuestNo() %>">주소추가</a></td>
 					</tr>
 				<%
 				}

@@ -15,16 +15,17 @@ import model.GuestAddr;
 import model.GuestAddrDao;
 import model.GuestDao;
 
-@WebServlet("/addGuestAddr.jk")
-public class AddGuestAddr extends HttpServlet {
+@WebServlet("/getGuestAddrList.jk")
+public class getGuestAddrListController extends HttpServlet {
 	private GuestAddrDao gAddrDao;
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		gAddrDao = new GuestAddrDao();
-		ArrayList<GuestAddr> list = gAddrDao.selectAllAddr(Integer.parseInt(request.getParameter("guestNo")));
+		System.out.println(request.getParameter("guestNo")+"아니");
+		ArrayList<GuestAddr> list = gAddrDao.selectGuestAddrList(Integer.parseInt(request.getParameter("guestNo")));
 		request.setAttribute("list", list);
 		//web-inf안에있기때문에 이렇게 접근해야함.
-		request.getRequestDispatcher("/WEB-INF/views/addGuestAddr.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/views/getGuestAddrList.jsp").forward(request, response);
 	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		gAddrDao = new GuestAddrDao();
@@ -37,6 +38,6 @@ public class AddGuestAddr extends HttpServlet {
 		//수정 고고
 		gAddrDao.insertGuestAddr(guestAddr);
 		//수정한뒤 다시 리스트로 컴백 
-		response.sendRedirect(request.getContextPath() + "/getGuestList.jk");
+		response.sendRedirect(request.getContextPath() + "/getGuestAddrList.jk");
 	}
 }

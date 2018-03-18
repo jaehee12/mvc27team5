@@ -35,7 +35,7 @@ public class GuestAddrDao {
 		return result;
 	}
 	
-	public ArrayList<GuestAddr> selectAllAddr(int guestNo){
+	public ArrayList<GuestAddr> selectGuestAddrList(int guestNo){
 		ArrayList<GuestAddr> list = new ArrayList<GuestAddr>();
 		Connection connection = null;
 		PreparedStatement statement = null;
