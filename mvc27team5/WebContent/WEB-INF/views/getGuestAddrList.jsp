@@ -16,13 +16,13 @@
 		<h1>GuestAddr 추가</h1>
 		<ul class="list-group-item">
 			<div class="input-group">
-				<span class="input-group-addon"> <input type="checkbox" id="" aria-label="..."></span>
+				<span class="input-group-addon"> <input type="checkbox" id="checkAddr" aria-label="..." onchange="checkAddr()"></span>
 				<li class="list-group-item">주소</li>
 			</div>
 			
 			<% for(GuestAddr guestAddr : list){ %>
 				<div class="input-group">
-					<span class="input-group-addon"> <input type="checkbox" aria-label="..."></span>
+					<span class="input-group-addon"> <input type="checkbox" name="checkbox_name" aria-label="..."></span>
 					<input type="hidden" name="guestAddrNoList" value="<%= guestAddr.getGuestAddrNo() %>">
 					<input type = "text" style="width:100%" class="list-group-item" name="guestAddrList" value="<%= guestAddr.getAddress() %>" readonly>
 				</div>
@@ -36,13 +36,13 @@
 				</div>
 			</div>
 		</ul>
-		<div class="input-group">
-			<form id="guestAddrForm" action="getGuestAddrList.jk" method="post">
+		<form id="guestAddrForm" action="getGuestAddrList.jk" method="post">
+			<div class="input-group">
 				<input type="hidden" name="guestNo" value="<%= request.getParameter("guestNo") %>">
 				<input type="text" class="form-control" id = "guestAddress" name = "guestAddress" placeholder="주소">
 				<span class="input-group-btn"><button class="btn btn-default" id="guestAddrBtn" type="button">추가</button></span>
 			</div>
-		</div>
+		</form>
 		<button type="button" id="calcelAddrBtn" class="btn btn-warning">홈으로</button>
 	</div>
 </body>

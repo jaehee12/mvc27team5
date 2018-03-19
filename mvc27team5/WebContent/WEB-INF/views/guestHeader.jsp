@@ -147,6 +147,20 @@ $(document).ready(function(){
 		percentMerge();
 	});
 	
+	var checkAddr = function(){
+		if($("#checkAddr").prop()){
+			$('input:checkbox[name="checkbox_name"]').each(function() {
+				this.checked = true; //checked 처리
+				if(this.checked){//checked 처리된 항목의 값
+					alert(this.value); 
+				}
+			});
+		} else{
+			
+		}
+	};
+	
+	
 	
 });
 </script>
