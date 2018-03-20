@@ -68,7 +68,7 @@ public class GuestAddrDao {
 		return list;
 	}
 	
-	public int maxAddrCount(int guestNo){
+	public int guestAddrCount(int guestNo){
 		ArrayList<GuestAddr> list = new ArrayList<GuestAddr>();
 		Connection connection = null;
 		PreparedStatement statement = null;
@@ -92,6 +92,31 @@ public class GuestAddrDao {
 			e.printStackTrace();
 		} finally {
 			if(resultSet != null) try { resultSet.close(); } catch(SQLException ex) { }
+			if(statement != null) try { statement.close(); } catch(SQLException ex) { }
+			if(connection != null) try { connection.close(); } catch(SQLException ex) { }
+		}
+		return result;
+	}
+	
+	public int removeGuestAddr(String[] removeAddrList) {
+		Connection connection = null;
+		PreparedStatement statement = null;
+		int result = 0;
+		String sql = "DELETE FROM guest_addr WHERE guest_addr_no = ?";
+		
+		try {
+			connection = DbConnection.dbConn();
+			for(String guestAddrNo : removeAddrList) {
+				statement = connection.prepareStatement(sql);
+				System.out.println(guestAddrNo + "너머임");
+				statement.setInt(1, Integer.parseInt(guestAddrNo));
+				result = statement.executeUpdate();	
+			}
+		} catch(ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch(SQLException e) {
+			e.printStackTrace();
+		} finally {
 			if(statement != null) try { statement.close(); } catch(SQLException ex) { }
 			if(connection != null) try { connection.close(); } catch(SQLException ex) { }
 		}

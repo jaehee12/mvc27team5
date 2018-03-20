@@ -21,5 +21,5 @@ public class GetGuestListController extends HttpServlet {
 		request.setAttribute("list", guestDao.selectAllGuest());
 		request.getRequestDispatcher("/WEB-INF/views/getGuestList.jsp").forward(request, response);
 	}
-
 }
+

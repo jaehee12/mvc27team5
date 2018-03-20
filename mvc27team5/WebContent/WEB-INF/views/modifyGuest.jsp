@@ -13,29 +13,28 @@
 	<% Guest guest = (Guest)request.getAttribute("guest"); %>
 	<div class="col-md-6 col-md-offset-3">
 		<h1>Guest 추가</h1>
-		<form id="guestForm" action="<%=request.getContextPath()%>/modifyGuest.jk" method="post">
+		<form id="uGuestForm" action="<%=request.getContextPath()%>/modifyGuest.jk" method="post">
 		<input type="hidden" name="guestNo" value="<%= guest.getGuestNo() %>">
-			<div class="form-group guest-id">
+			<div class="form-group update-guest-id">
 				<label>이름</label>
 				<div class="input-group">
-					<span class="input-group-addon"></span>
-					<input type="text" class="form-control" id="guestId" name="guestId" value="<%= guest.getGuestId() %>" readonly>
+					<input type="text" class="form-control" id="uGuestId" name="uGuestId" value="<%= guest.getGuestId() %>" readonly>
 				</div>
 				<p></p>
 			</div>
-			<div class="form-group guest-pw">
+			<div class="form-group update-guest-pw">
 				<label>비밀번호</label>
 				<div class="input-group">
 					<span class="input-group-addon"></span>
-					<input type="password" class="form-control" id="guestPw" name="guestPw" value="<%= guest.getGuestPw() %>">
+					<input type="password" class="form-control" id="uGuestPw" name="uGuestPw" value="<%= guest.getGuestPw() %>">
 				</div>
 				<p >비밀번호를 4자 이상 입력 해 주세요</p>
 			</div>
-			<div class="form-group guest-pw-check">
+			<div class="form-group update-guest-pw-check">
 				<label>비밀번호 확인</label>
 				<div class="input-group">
 					<span class="input-group-addon"></span>
-					<input type="password" class="form-control" id="guestPwCheck" name="guestPwCheck" value="<%= guest.getGuestPw() %>">
+					<input type="password" class="form-control" id="uGuestPwCheck" name="uGuestPwCheck" value="<%= guest.getGuestPw() %>">
 				</div>
 				<p>비밀번호가 일치하지 않습니다</p>
 			</div>
@@ -47,7 +46,7 @@
 				</div>
 			</div>
 			<div class="form-group text-center">
-				<button type="button" id="guestBtn" class="btn btn-info">수정하기</button>
+				<button type="button" id="updateGuestBtn" class="btn btn-info">수정하기</button>
 				<button type="button" id="calcelBtn" class="btn btn-warning">수정 취소</button>
 			</div>
 		</form>

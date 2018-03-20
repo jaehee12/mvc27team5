@@ -22,8 +22,10 @@ public class getGuestAddrListController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		gAddrDao = new GuestAddrDao();
 		System.out.println(request.getParameter("guestNo")+"아니");
-		ArrayList<GuestAddr> list = gAddrDao.selectGuestAddrList(Integer.parseInt(request.getParameter("guestNo")));
+		int guestNo = Integer.parseInt(request.getParameter("guestNo"));
+		ArrayList<GuestAddr> list = gAddrDao.selectGuestAddrList(guestNo);
 		request.setAttribute("list", list);
+		request.setAttribute("guestAddrCount", gAddrDao.guestAddrCount(guestNo));
 		//web-inf안에있기때문에 이렇게 접근해야함.
 		request.getRequestDispatcher("/WEB-INF/views/getGuestAddrList.jsp").forward(request, response);
 	}
@@ -34,10 +36,10 @@ public class getGuestAddrListController extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		//위에 doGet에서 보냈던것을 수정한 정보를 여기에서 받아서 객체에 셋팅해줌
 		guestAddr.setGuestNo(Integer.parseInt(request.getParameter("guestNo")));
-		guestAddr.setAddress(request.getParameter("guestAddr"));
+		guestAddr.setAddress(request.getParameter("guestAddress"));
 		//수정 고고
 		gAddrDao.insertGuestAddr(guestAddr);
 		//수정한뒤 다시 리스트로 컴백 
-		response.sendRedirect(request.getContextPath() + "/getGuestAddrList.jk");
+		response.sendRedirect(request.getContextPath() + "/getGuestAddrList.jk?guestNo="+guestAddr.getGuestNo());
 	}
 }

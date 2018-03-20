@@ -32,8 +32,12 @@ $(document).ready(function(){
 	$(".guest-pw-check span").hide();
 	$(".guest-addr span").hide();
 	
+	$(".update-guest-pw span").hide();
+	$(".update-guest-pw-check span").hide();
+	
 	$("#guestIdCheckHelp").hide();
 	$("p").hide();
+	
 	$("#guestBtn").click(function(e) {
 		if ($("#guestId").val().length < 4) {
 			$("#guestId").focus();
@@ -46,14 +50,16 @@ $(document).ready(function(){
 		}
 	});
 	
-	//이거는 주소추가를 실행해서 그안에 데이터넣고했을때 문자길이가지고 비교해서 submit해주는거
-	$("#guestAddrBtn").click(function(e) {
-		if($("#guestAddress").val().length < 3){
-			
-		} else{
-			$("#guestAddrForm").submit();
+	$("#updateGuestBtn").click(function(e) {
+		if ($("#uGuestPw").val().length < 4) {
+			$("#uGuestPw").focus();
+		} else if ($("#uGuestPw").val() != $("#uGuestPwCheck").val()) {
+			$("#uGuestPwCheck").focus();
+		} else {
+			$("#uGuestForm").submit();
 		}
 	});
+	
 	//아래서 원래 사용하던 코드의 내용이중복되기때문에, 함수형태로 만들어줬다. 이건 나중에 keyup이벤트할때도 쓸것임!
 	var guestSuccess = function(guestSuccessForm){
 		guestSuccessForm.removeClass("text-danger");
@@ -147,20 +153,62 @@ $(document).ready(function(){
 		percentMerge();
 	});
 	
-	var checkAddr = function(){
-		if($("#checkAddr").prop()){
-			$('input:checkbox[name="checkbox_name"]').each(function() {
-				this.checked = true; //checked 처리
-				if(this.checked){//checked 처리된 항목의 값
-					alert(this.value); 
-				}
-			});
-		} else{
-			
+	$("#uGuestPw").blur(function(){
+		$(".update-guest-pw span").show();
+		if($("#uGuestPw").val().length < 4){
+			guestFail($(".update-guest-pw"));
+			percentPw = 0;
+		} else {
+			guestSuccess($(".update-guest-pw"));
+			percentPw = 50;
 		}
-	};
+		percentMerge();
+	});
+	
+	$("#uGuestPwCheck").blur(function(){
+		$(".update-guest-pw-check span").show();
+		if(($("#uGuestPw").val() != $("#uGuestPwCheck").val()) || ($("#uGuestPwCheck").val().length < 4)){
+			guestFail($(".update-guest-pw-check"));
+			percentPwCheck = 0;
+		} else {
+			guestSuccess($(".update-guest-pw-check"));
+			percentPwCheck = 50;
+		}
+		percentMerge();
+	});
 	
 	
 	
+	
+	
+	
+	
+	$("#checkAddr").click(function(){ 
+		if($("#checkAddr").prop("checked")) {
+			$("input[type=checkbox]").prop("checked",true);
+		} else {
+			$("input[type=checkbox]").prop("checked",false); 
+		} 
+	});
+
+	$("#guestAddrBtn").click(function(){ 
+		if($("#guestAddress").val().length < 1) {
+			
+		} else {
+			console.log($("#guestAddrCount").val());
+			if($("#guestAddrCount").val() >= 5){
+				$("p").show();
+			} else{
+				$("p").hide();
+				$("#guestAddrForm").submit();
+			}
+		}
+	});
+	
+	$("#removeAddrBtn").click(function(){ 
+		$(".form-check").attr("action", "removeGuestAddr.jk?guestNo=<%= request.getParameter("guestNo") %>");
+		
+		$(".form-check").submit();
+	});	
 });
 </script>
