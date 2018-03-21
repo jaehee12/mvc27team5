@@ -37,7 +37,7 @@
 		</ul>
 		<form id="studentAddrForm" action="getStudentAddrList.jjdev" method="post">
 			<div class="input-group">
-				<!-- 요건 만약에 주소가 5개이상이면 삽입 못하게!! -->
+				<!-- 주소가 5개이상이면 추가할수 없게 -->
 				<input type="hidden" id="studentAddrCount" value="<%= request.getAttribute("studentAddrCount") %>">
 				<input type="hidden" name="studentNo" value="<%= request.getParameter("studentNo") %>">
 				<input type="text" class="form-control" id = "studentAddress" name = "studentAddress" placeholder="주소">

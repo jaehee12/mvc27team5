@@ -11,8 +11,9 @@ import db.DbConnection;
 
 public class StudentDao {
 	
-	// model패키지의 Student클래스 타입의 student를 매개변수로 insertStudent메서드를 실행해 student의 id와 pw를 insert한다
+	/*student를 매개변수로 받아 insertStudent메서드를 실행해 student의 id와 pw를 데이터베이스에 추가하는 메서드*/
 	public void insertStudent(Student student) {
+		System.out.println("insertStudent StudentDao.java");
 		Connection connection = null;
 		PreparedStatement statement = null;
 		try {
@@ -20,7 +21,7 @@ public class StudentDao {
 			// String타입의 변수 sql에 insert쿼리문을 넣는다
 			// connection참조변수에 prepareStatement의 메서드를 실행하고 sql에 담은 insert쿼리문을 실행위한 준비를 하고
 			// Student클래스의 student변수의 주소를 찾아가 셋팅되었던 studentId,studentPw를 get메서드를 실행해 가져와서
-			// statement차모벼수의 set메서드에 매개변수로 물음표에 각각 셋팅한다.
+			// statement참조변수의 set메서드에 매개변수로 물음표에 각각 셋팅한다.
 			// 그리고 statement참조변수에 executeUpdate메서드를 실행해 갱신해준다.
 			connection = DbConnection.dbConn();
 			String sql = "INSERT INTO student (student_id, student_pw) VALUES(?, ?)";
@@ -38,15 +39,16 @@ public class StudentDao {
 		}	
 	}
 	
-	//Student 리스트를 조회
-	//리턴값이 ArrayList<Student>이다
+	/* Student 리스트를 조회
+	   DB연결 후 SELECT 쿼리문 실행준비와 쿼리문실행후 그결과를 리스트에 추가해 담은후 리턴한다.*/	
 	public ArrayList<Student> selectStudentlist() {
+		System.out.println("selectStudent StudentDao.java");
 		Connection connection = null;
 		PreparedStatement statement = null;
 		ResultSet resultSet = null;
 		Student student = null;
 		ArrayList<Student> list = new ArrayList<Student>();
-			// DB연결 후 쿼리문 실행준비와 쿼리문실행후 그결과를  리스트에 추가해 담은후 리턴한다 닫아준다.
+			
 		try {
 			connection = DbConnection.dbConn();
 			String sql = "SELECT * FROM student";
@@ -72,18 +74,18 @@ public class StudentDao {
 	}
 
 	
-	//Student 삭제
-	public int removeStudent(int studentNo) {//Student student
+	/* int타입의 studentNo를 매개변수로 받아 removeStudent메서드 실행해 
+	 * 데이터베이스에 있는 선택된 student를 삭제하는 메서드 */ 
+	public void removeStudent(int studentNo) {//Student student
+		System.out.println("deleteStudent StudentDao.java");
 		Connection connection = null;
 		PreparedStatement statement = null;
-		int result = 0;
-		System.out.println("deleteStudent StudentDao.java");
 		try {
 			connection = DbConnection.dbConn();
 			String sql = "DELETE FROM student WHERE student_no = ?";
 			statement = connection.prepareStatement(sql);
 			statement.setInt(1, studentNo);
-			result = statement.executeUpdate();
+			statement.executeUpdate();
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (SQLException e) {
@@ -92,17 +94,17 @@ public class StudentDao {
 			if (statement != null) try {statement.close();} catch (SQLException e) {}
 			if (connection != null) try {connection.close();} catch (SQLException e) {}
 		}
-		return result;
 	}
 	
 	
-	// 수정화면에 한명의 학생젖보 조회
+	/* studentNo를 매개변수로 받아 선택한 한명의 학생정보를 수정화면에 조회해주는 메서드
+	 * 그 결과를 student에 셋팅해 리턴한다 */
 	public Student selectOneStudent(int studentNo) {
+		System.out.println("selectOneStudent StudentDao.java");
 		Connection connection = null;
 		PreparedStatement statement = null;
 		ResultSet resultSet = null;
 		Student student = null;
-		System.out.println("selectOneStudent StudentDao.java");
 		try {
 			connection = DbConnection.dbConn();
 			String sql = "SELECT student_no AS studentNo, student_id AS studentId, student_pw AS studentPw FROM student WHERE student_no=?";
@@ -130,17 +132,14 @@ public class StudentDao {
 	
 	
 	
-	//Student 정보를 업데이트
-	public int modifyStudent(Student student) {
+	/* student를 매개변수로 받아 수정화면에서 입력한 Student 정보를 업데이트 하는 메서드*/
+	public void modifyStudent(Student student) {
+		System.out.println("modifyStudent StudentDao.java");
 		Connection connection = null;
 		PreparedStatement statement = null;
-		System.out.println("updateStudent StudentDao.java");
-		int result = 0;
+		String sql = "UPDATE student SET student_pw=? WHERE student_no=?";
 		try {
-			//Db연결 후 업데이트 하는 쿼리문을 sql에 담아서 쿼리실행을 위하 준비후 셋팅
-			//쿼리실행 후 닫아준다.
 			connection = DbConnection.dbConn();
-			String sql = "UPDATE student SET student_pw=? WHERE student_no=?";
 			statement = connection.prepareStatement(sql);
 			statement.setString(1, student.getStudentPw());
 			statement.setInt(2, student.getStudentNo());
@@ -153,17 +152,15 @@ public class StudentDao {
 			if (statement != null) try {statement.close();} catch (SQLException e) {}
 			if (connection != null) try {connection.close();} catch (SQLException e) {}
 		}
-		
-		return result;
 	}
 
 	
-	// student id 체크
+	/*String타입의 studentId를 매개변수로 받아 student id를 체크하는 메서드*/
 	public boolean sIdCheck(String studentId) {
+		System.out.println("sIdCheck StudentDao.java");
 		Connection connection = null;
 		PreparedStatement statement = null;
 		ResultSet resultSet = null;
-		Student student = new Student();
 		boolean result = false;
 		String sql = "SELECT student_id AS studentId FROM student WHERE student_id = ?";
 		try {

@@ -11,8 +11,8 @@ import db.DbConnection;
 
 public class StudentAddrDao {
 	
-	// 학생 주소추가 
-	// insertStudentAddr가 무슨 메서드인지 매개변수
+	/* studentAddr을 매개변수로 받아 해당된 학생의 주소를 추가해주는 메서드
+	 * 그 결과를 result에 담아 리턴 */	
 	public int insertStudentAddr(StudentAddr studentAddr) {
 		Connection connection = null;
 		PreparedStatement statement = null;
@@ -21,12 +21,10 @@ public class StudentAddrDao {
 		try {
 			//db연결 및 드라이버 로딩
 			connection = DbConnection.dbConn();
-			//String 타입의 변수 sql에 insert쿼리문을 넣는다.   
 			statement = connection.prepareStatement(sql);
 			statement.setInt(1, studentAddr.getStudentNo());
 			statement.setString(2, studentAddr.getAddress());
 			result = statement.executeUpdate();
-			
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (SQLException e) {
@@ -39,7 +37,8 @@ public class StudentAddrDao {
 		return result;
 	}
 
-	// 학생 주소록의 리스트조회
+	/* int타입의 studentNo를 매개변수로 받아 학생주소 리스트를 조회하는 메서드
+	 * 셋팅된 결과를 리스트에 추가해 리턴한다 */
 	public ArrayList<StudentAddr> selectStudentAddrList(int studentNo) {
 		Connection connection = null;
 		PreparedStatement statement = null;
@@ -70,7 +69,7 @@ public class StudentAddrDao {
 		return list;
 	}
 	
-	// 학생리스트 갯수 카운트
+	/* int 타입의 studentNo를 매개변수로 받아 학생리스트 갯수를 카운트하는 메서드*/
 	public int studntAddrCount(int studentNo) {
 		ArrayList<StudentAddr> list = new ArrayList<StudentAddr>();
 		Connection connection = null;
@@ -101,13 +100,12 @@ public class StudentAddrDao {
 		return result;
 	}
 	
-	//학생리스트 전체삭제
+	/* removeAddrList를 매개변수로 받아 선택한 학생의 주소리스트를 전체삭제,삭제 하는 메서드*/
 	public int removeStudentAddr(String[] removeAddrList) {
 		Connection connection = null;
 		PreparedStatement statement = null;
 		int result = 0;
 		String sql = "DELETE FROM student_addr WHERE student_addr_no = ?";
-		
 		try {
 			connection = DbConnection.dbConn();
 			for(String studentAddrNo : removeAddrList) {

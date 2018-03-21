@@ -12,12 +12,9 @@ import model.StudentAddrDao;
 
 @WebServlet("/removeStudentAddr.jjdev")
 public class RemoveStudentAddr extends HttpServlet {
- 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("doGet ");
-	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("doPost RemoveStudentAddr.java");
 		String[] removeAddrList = request.getParameterValues("studentAddrNoList");
 		if(removeAddrList != null) {
 			StudentAddrDao studentAddrDao = new StudentAddrDao();
