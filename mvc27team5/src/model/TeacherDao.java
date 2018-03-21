@@ -10,6 +10,36 @@ import java.sql.ResultSet;
 
 public class TeacherDao {	
 	
+	/* 
+	 * 아이디 체크하는 메서드
+	 */
+	public boolean tIdCheck(String teacherId) {
+		Connection connection = null;
+		PreparedStatement statement = null;
+		ResultSet resultSet = null;
+		boolean result = false;
+		String sql = "SELECT teacher_id AS teacherId FROM teacher WHERE teacher_id = ?";
+		try {
+			connection = DbConnection.dbConn();
+			statement = connection.prepareStatement(sql);
+			statement.setString(1, teacherId);
+			resultSet = statement.executeQuery();
+			if(resultSet.next()) {
+				result = true;
+			}
+		} catch(ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch(SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if(resultSet != null) try { resultSet.close(); } catch(SQLException ex) { }
+			if(statement != null) try { statement.close(); } catch(SQLException ex) { }
+			if(connection != null) try { connection.close(); } catch(SQLException ex) { }
+		}
+		return result;
+		
+	}
+	
 	/*
 	 * 리스트에서 삭제버튼을 누르면 해당 레코드를 삭제하는 메서드
 	 * 매개변수 teacherNo를 입력받고 리턴없음.
@@ -103,7 +133,7 @@ public class TeacherDao {
 		ResultSet rs = null;
 		Teacher teacher = null;		
 		ArrayList<Teacher> list = null;
-		String sql = "SELECT  * FROM teacher";
+		String sql = "SELECT * FROM teacher";
 		try {
 			conn = DbConnection.dbConn();
 			pstmt = conn.prepareStatement(sql);

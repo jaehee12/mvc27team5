@@ -18,12 +18,11 @@ public class ModifyTeacher extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("---doGet ModifyTeacher controller---");
 		// DAO -> teacherNo 로 조회하여 teacher 리턴받기
-		Teacher teacher = new Teacher();
-		teacher.setTeacherNo(Integer.parseInt(request.getParameter("teacherNo")));
+		int TeacherNo = (Integer.parseInt(request.getParameter("teacherNo")));
 		this.tdao = new TeacherDao();		
-		teacher = tdao.selectForUpdateTeacher(teacher.getTeacherNo());
+		tdao.selectForUpdateTeacher(TeacherNo);
 		// request 객체에 뷰에 뿌려줄 teacher 세팅
-		request.setAttribute("teacher", teacher);
+		request.setAttribute("teacher", tdao.selectForUpdateTeacher(TeacherNo));
 		// 뷰(수정화면)로 포워드
 		request.getRequestDispatcher("/WEB-INF/views/modifyTeacher.jsp").forward(request, response);
 	}
@@ -35,7 +34,8 @@ public class ModifyTeacher extends HttpServlet {
 		// (수정해서)입력받은 데이터(form-submit) 겟팅
 		Teacher teacher = new Teacher();
 		teacher.setTeacherNo(Integer.parseInt(request.getParameter("teacherNo")));
-		teacher.setTeacherPw(request.getParameter("teacherPw"));
+		teacher.setTeacherId(request.getParameter("uTeacherId"));
+		teacher.setTeacherPw(request.getParameter("uTeacherPw"));
 		// DAO -> 수정된 데이터를 셋팅한 teacher를 입력변수로 메서드 호출
 		this.tdao = new TeacherDao();
 		tdao.updateTeacher(teacher);
