@@ -47,33 +47,7 @@
 		<p>주소의 개수가 5개 이상입니다.</p>
 		<button type="button" id="calcelAddrBtn" class="btn btn-warning" onclick="location.href='getStudentList.jjdev' ">홈으로</button>
 	</div>
-		<%-- <form>
-			<table>
-				<thead>
-					<tr>
-						<th>주소 순서</th>
-						<th>학생 순서 </th>
-						<th>학생 주소</th>
-					</tr>
-				</thead>
-				<tbody>
-					<%
-						ArrayList<StudentAddr> list = (ArrayList<StudentAddr>)request.getAttribute("list");
-						for(StudentAddr studentAddr : list) {
-					%>
-					<tr>
-						<td><%= studentAddr.getStudentAddrNo() %></td>
-						<td><%= studentAddr.getStudentNo() %></td>
-						<td><%= studentAddr.getAddress() %></td>
-					</tr>
-					<%
-						}
-					%>
-				</tbody>
-			</table>
-		</form>
-		</div>
-		<%@include file = "/WEB-INF/views/addStudentAddr.jsp" %> --%>
+		
 </body>
 </html>
 

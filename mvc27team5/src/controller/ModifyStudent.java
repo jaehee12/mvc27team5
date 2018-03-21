@@ -13,6 +13,8 @@ import model.StudentDao;
 
 @WebServlet("/modifyStudent.jjdev")
 public class ModifyStudent extends HttpServlet {
+	/*StudentDao의 객체를 셋팅해주고 파라미터로 받은 studentNo를 Integer로 숫자로 바꾼후 
+	 * selectOneStudent메서드의 매개변수로 넘겨 request에 셋팅 후 포워드 한다  */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("doGet ModifyStudentController.java");
 		StudentDao studentDao = new StudentDao();

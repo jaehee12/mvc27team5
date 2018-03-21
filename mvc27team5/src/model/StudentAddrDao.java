@@ -111,6 +111,7 @@ public class StudentAddrDao {
 		try {
 			connection = DbConnection.dbConn();
 			for(String studentAddrNo : removeAddrList) {
+				System.out.println(removeAddrList + "<-- removeAddrList removeStudentAddr ");
 				statement = connection.prepareStatement(sql);
 				System.out.println(studentAddrNo + "<--studentAddrNo");
 				statement.setInt(1, Integer.parseInt(studentAddrNo));
