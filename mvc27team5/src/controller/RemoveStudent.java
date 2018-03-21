@@ -15,10 +15,8 @@ public class RemoveStudent extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("doGet RemoveStudentController.java");
-		int studentNo = Integer.parseInt(request.getParameter("studentNo"));
-		System.out.println(studentNo + "<-- studentNo RemoveStudent.java");
 		StudentDao studentDao = new StudentDao();
-		studentDao.removeStudent(studentNo);
+		studentDao.removeStudent(Integer.parseInt(request.getParameter("studentNo")));
 		response.sendRedirect(request.getContextPath() + "/getStudentList.jjdev");
 	}
 

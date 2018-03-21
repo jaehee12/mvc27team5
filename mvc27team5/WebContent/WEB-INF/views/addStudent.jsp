@@ -3,76 +3,50 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>free login form -bootstrap</title>
-    <!-- Bootstrap -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <!-- font awesome -->
-    <link href="css/font-awesome.min.css" rel="stylesheet">
-    <!-- Custom Style -->
-    <link href="css/style.css" rel="stylesheet">
- 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-	<script>
-		$(document).ready(function (){
-			$("#insertStudent").click(function(){
-				if($("#studentId").val().length < 4) {
-					$("#helper").text("*아이디를 4자이상 입력해주세요")
-					return;
-				}else if($("#studentPw").val().length < 4){
-					$("#helper").text("*비밀번호를 4자이상 입력해주세요")
-					return;
-				}else if($("#studentPwCheck").val() !== $("#studentPw").val()){
-					$("#helper").text("*비밀번호가 정확한지 확인해주세요")
-					return;
-				}else{
-					$("#studentInsertForm").submit();
-				}
-			})
-		});
-	</script>
+<jsp:include page="studentHeader.jsp"></jsp:include>
+</head>
 </head>
 <body>
-    <div class="container">
-      <div class="row">
-        <div class="page-header">
-          <h2>학생 회원가입</h2>
-        </div>
-        <div class="col-md-3">
-          <div class="login-box well">
-	        <form accept-charset="UTF-8" id="studentInsertForm" method="post" action="<%= request.getContextPath()%>/addStudent.jjdev">
-	            <legend>Student Insert</legend>
-	            <div class="form-group">
-	                <label for="username-email">학생 아이디</label>
-	                <input name="studentId" value='' id="studentId" placeholder="Enter ID" type="text" class="form-control" />
-	            </div>
-	            
-	            <div class="form-group">
-	                <label for="password">비밀번호</label>
-	                <input name="studentPw" id="studentPw" value='' placeholder="Enter Password" type="password" class="form-control" />
-	            </div>
-	            
-	            <div class="form-group">
-	                <label for="password">비밀번호 확인</label>
-	                <input name="studentPw" id="studentPwCheck" value='' placeholder="Password Check" type="password" class="form-control" />
-	            </div>
-	              
-	            <hr />
-	            <div class="form-group">
-	                <input type="button" id="insertStudent" class="btn btn-default btn-login-submit btn-block m-t-md" value="학생으로 회원가입" />
-	            </div>
-	        </form>
-        	<div><span id="helper"></span></div>
-          </div>
-        </div>
-      </div>
-    </div>
- 
-  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-  <!-- Include all compiled plugins (below), or include individual files as needed -->
-  <script src="js/bootstrap.min.js"></script>
+<jsp:include page="studentBody.jsp"></jsp:include>
+	<div class="col-md-6 col-md-offset-3">
+			<h1>Student 추가</h1>
+			<form id="studentForm" action="<%=request.getContextPath()%>/addStudent.jjdev" method="post">
+				<div class="form-group student-id">
+					<label>이름</label>
+					<div class="input-group">
+						<span class="input-group-addon"></span>
+						<input type="text" class="form-control" id="studentId" name="studentId" placeholder="이름을 입력해 주세요">
+					</div>
+					<p></p>
+				</div>
+				<div class="form-group student-pw">
+					<label>비밀번호</label>
+					<div class="input-group">
+						<span class="input-group-addon"></span>
+						<input type="password" class="form-control" id="studentPw" name="studentPw" placeholder="비밀번호">
+					</div>
+					<p>비밀번호를 4자 이상 입력 해 주세요</p>
+				</div>
+				<div class="form-group student-pw-check">
+					<label>비밀번호 확인</label>
+					<div class="input-group">
+						<span class="input-group-addon"></span>
+						<input type="password" class="form-control" id="studentPwCheck" name="studentPwCheck" placeholder="비밀번호 확인">
+					</div>
+					<p>비밀번호가 일치하지 않습니다</p>
+				</div>
+				<div class="progress">
+					<div class="progress-bar progress-bar-striped active"
+						role="progressbar" aria-valuenow="0" aria-valuemin="0"
+						aria-valuemax="100" style="width: 0%">
+						<span class="sr-only">0% Complete</span>
+					</div>
+				</div>
+				<div class="form-group text-center">
+					<button type="button" id="studentBtn" class="btn btn-info">회원가입</button>
+					<button type="button" id="calcelBtn" class="btn btn-warning">가입취소</button>
+				</div>
+			</form>
+		</div>
   </body>
   </html>

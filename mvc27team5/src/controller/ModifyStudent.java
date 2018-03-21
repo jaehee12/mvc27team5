@@ -15,32 +15,20 @@ import model.StudentDao;
 public class ModifyStudent extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("doGet ModifyStudentController.java");
-		
-		int studentNo = Integer.parseInt(request.getParameter("studentNo"));
 		StudentDao studentDao = new StudentDao();
-		Student student = studentDao.selectOneStudent(studentNo);
-		request.setAttribute("student", student);
-		request.getRequestDispatcher("/WEB-INF/views/modifyStudentForm.jsp").forward(request, response);
+		request.setAttribute("student", studentDao.selectOneStudent(Integer.parseInt(request.getParameter("studentNo"))));
+		request.getRequestDispatcher("/WEB-INF/views/modifyStudent.jsp").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
 		System.out.println("doPost ModifyStudentController.java");
-		
+		request.setCharacterEncoding("UTF-8");
 		Student student = new Student();
 		StudentDao studentDao = new StudentDao();
-		
-		int studentNo = Integer.parseInt(request.getParameter("studentNo"));
-		String studentId = request.getParameter("studentId");
-		String studentPw = request.getParameter("studentPw");
-		System.out.println(studentNo + "," + studentId + "," + studentPw + "<--studentNo, studentId, studentPw");
-		 
-		student.setStudentNo(studentNo);
-		student.setStudentId(studentId);
-		student.setStudentPw(studentPw);
-		
+		student.setStudentNo(Integer.parseInt(request.getParameter("studentNo")));
+		student.setStudentId(request.getParameter("uStudentId"));
+		student.setStudentPw(request.getParameter("uStudentPw"));
 		studentDao.modifyStudent(student);
-		
 		response.sendRedirect(request.getContextPath() + "/getStudentList.jjdev");
 		
 	}

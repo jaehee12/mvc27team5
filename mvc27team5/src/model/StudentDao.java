@@ -156,5 +156,37 @@ public class StudentDao {
 		
 		return result;
 	}
+
 	
+	// student id 체크
+	public boolean sIdCheck(String studentId) {
+		Connection connection = null;
+		PreparedStatement statement = null;
+		ResultSet resultSet = null;
+		Student student = new Student();
+		boolean result = false;
+		String sql = "SELECT student_id AS studentId FROM student WHERE student_id = ?";
+		try {
+			connection = DbConnection.dbConn();
+			statement = connection.prepareStatement(sql);
+			statement.setString(1, studentId);
+			System.out.println(statement);
+			resultSet = statement.executeQuery();
+			if(resultSet.next()) {
+				result = true;
+			}
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if(resultSet != null) try { resultSet.close(); } catch(SQLException ex) {}
+			if(statement != null) try { statement.close(); } catch(SQLException ex) {}
+			if(connection != null) try { connection.close(); } catch(SQLException ex) {}
+		}
+
+		return result;
 	}
+	
+	
+}

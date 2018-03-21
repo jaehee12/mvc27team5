@@ -18,6 +18,8 @@ public class GetStudentListController extends HttpServlet {
 	private StudentDao studentDao;
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		/*studentDao의 객체를 생성해주고 studentDao의 주소에 있는 selectStudentlist()메서드를 실행.
+		 *메서드에서 리턴받은 list를 request에 셋팅하고 난 후 getStudentList.jsp로 포워드 한다.*/
 		StudentDao studentDao = new StudentDao();
 		ArrayList<Student> list = studentDao.selectStudentlist();
 		request.setAttribute("list", list);
