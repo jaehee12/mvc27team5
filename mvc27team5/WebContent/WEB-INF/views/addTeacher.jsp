@@ -3,55 +3,49 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<title>addTeacher.jsp</title>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"	crossorigin="anonymous">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-	
-	<script>
-		$(document).ready(function() {			
-			$("#signYes").click(function() {
-				if ($("#teacherId").val().length < 4) {
-					alert('아이디를 4자 이상 입력하세요');
-					return;
-				} else if ($("#teacherPw").val().length < 4) {
-					alert('비밀번호를 4자 이상 입력하세요.');
-					return;
-				} else if ($("#teacherPwChk").val().length < 4) {
-					alert('비밀번호확인을 4자 이상입력하세요.');
-					return;
-				} else if ($("#teacherPw").val() != $("#teacherPwChk").val()) {
-					alert('비밀번호와 비밀번호 확인이 다릅니다.');
-					return;
-				} else {
-					$("#addTeacher").submit();
-				}
-			});
-			/* $("#checkbox").on("change", function() {
-				if ($(this).is(":checked")){
-					$("#teacherPw").type("text").change();
-				}
-			} */
-			
-		});
-	</script>
+<jsp:include page="teacherHeader.jsp"></jsp:include>
 </head>
 <body>
-	<form id="addTeacher" action="<%= request.getContextPath() %>/addTeacher.jjdev" method="post">
-		
-		<label for="teacherId">아이디</label>
-		<input type="text" id="teacherId" name="teacherId" placeholder="아이디를 입력하세요">	
-		
-		<label for="teacherPw">비밀번호</label>
-		<input type="password" id="teacherPw" name="teacherPw" placeholder="비밀번호를 입력하세요">
-	
-		<label for="teacherPwChk">비밀번호 확인</label>
-		<input type="password" id="teacherPwChk" name="teacherPwChk" placeholder="비밀번호를 다시 입력하세요">
-	  
-		<input type="checkbox" id="checkbox"> 비밀번호 표시
-
-		<button type="button" id="signYes">가입</button>
-		<button type="button" id="signCancel">취소</button>
-	</form>
+<jsp:include page="teacherBody.jsp"></jsp:include>
+	<div class="col-md-6 col-md-offset-3">
+		<h1>Teacher 추가</h1>
+		<form id="teacherForm" action="<%=request.getContextPath()%>/addTeacher.jjdev" method="post">
+			<div class="form-group teacher-id">
+				<label>아이디</label>
+				<div class="input-group">
+					<span class="input-group-addon"></span>
+					<input type="text" class="form-control" id="teacherId" name="teacherId" placeholder="아이디">
+				</div>
+				<p></p>
+			</div>
+			<div class="form-group teacher-pw">
+				<label>비밀번호</label>
+				<div class="input-group">
+					<span class="input-group-addon"></span>
+					<input type="password" class="form-control" id="teacherPw" name="teacherPw" placeholder="비밀번호">
+				</div>
+				<p>비밀번호를 4자 이상 입력 해 주세요</p>
+			</div>
+			<div class="form-group teacher-pw-check">
+				<label>비밀번호 확인</label>
+				<div class="input-group">
+					<span class="input-group-addon"></span>
+					<input type="password" class="form-control" id="teacherPwCheck" name="teacherPwCheck" placeholder="비밀번호 확인">
+				</div>
+				<p>비밀번호가 일치하지 않습니다</p>
+			</div>
+			<div class="progress">
+				<div class="progress-bar progress-bar-striped active"
+					role="progressbar" aria-valuenow="0" aria-valuemin="0"
+					aria-valuemax="100" style="width: 0%">
+					<span class="sr-only">0% Complete</span>
+				</div>
+			</div>
+			<div class="form-group text-center">
+				<button type="button" id="teacherBtn" class="btn btn-info">회원가입</button>
+				<button type="button" id="calcelBtn" class="btn btn-warning">가입취소</button>
+			</div>
+		</form>
+	</div>
 </body>
 </html>

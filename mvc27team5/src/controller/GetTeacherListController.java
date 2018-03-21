@@ -21,8 +21,7 @@ public class GetTeacherListController extends HttpServlet {
 		System.out.println("---doGet GetTeacherListController controller---");
 		// DAO -> list 출력하는 메서드 호출
 		this.teacherDao = new TeacherDao();
-		ArrayList<Teacher> list = new ArrayList<Teacher>();		
-		list = teacherDao.selectAllTeacher();
+		ArrayList<Teacher> list = teacherDao.selectAllTeacher();
 		// request 객체에 list 셋팅
 		request.setAttribute("list", list);
 		request.getRequestDispatcher("/WEB-INF/views/getTeacherList.jsp").forward(request, response);
