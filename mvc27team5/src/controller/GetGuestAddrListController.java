@@ -16,7 +16,7 @@ import model.GuestAddrDao;
 import model.GuestDao;
 
 @WebServlet("/getGuestAddrList.jk")
-public class getGuestAddrListController extends HttpServlet {
+public class GetGuestAddrListController extends HttpServlet {
 	private GuestAddrDao gAddrDao;
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
