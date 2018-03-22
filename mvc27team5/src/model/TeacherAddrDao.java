@@ -90,7 +90,6 @@ public class TeacherAddrDao {
 		try {
 			conn = DbConnection.dbConn();
 			for(String TeacherAddrNo : removeAddrList) {
-				System.out.println(Integer.parseInt(TeacherAddrNo) + "<-넘버");
 				pstmt = conn.prepareStatement(sql);					
 				pstmt.setInt(1, Integer.parseInt(TeacherAddrNo));
 				result = pstmt.executeUpdate();

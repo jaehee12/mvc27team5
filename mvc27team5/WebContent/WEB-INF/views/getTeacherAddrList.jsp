@@ -1,7 +1,6 @@
 <!-- [유국화] -->
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import = "model.TeacherAddr" %>
-<%@ page import = "java.util.ArrayList" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,11 +9,7 @@
 	<jsp:include page="teacherHeader.jsp"></jsp:include>
 </head>
 <body>
-	<jsp:include page="teacherBody.jsp"></jsp:include>
-	<%
-		ArrayList<TeacherAddr> list = new ArrayList<TeacherAddr>();
-		list = (ArrayList<TeacherAddr>)request.getAttribute("list");
-	%>
+	<jsp:include page="teacherBody.jsp"></jsp:include>	
 	<div class="col-md-4 col-md-offset-4 text-center">
 		<h1>TeacherAddr 리스트</h1>
 		<ul class="list-group-item">
@@ -23,15 +18,12 @@
 				<li class="list-group-item">주소</li>
 			</div>
 			<form method="post" class="form-check">
-				<% 
-					for(TeacherAddr teacherAddr : list){ %>
+				<c:forEach var="teacherAddr" items="${list}">
 						<div class="input-group">
-							<span class="input-group-addon"> <input type="checkbox" name="teacherAddrNoList" value="<%= teacherAddr.getTeacherAddrNo() %>" aria-label="..." class="checkList"></span>
-							<input type = "text" style="width:100%" class="list-group-item" name="teacherAddr" value="<%= teacherAddr.getAddress() %>" readonly>
+							<span class="input-group-addon"> <input type="checkbox" name="teacherAddrNoList" value="${teacherAddr.teacherAddrNo}" aria-label="..." class="checkList"></span>
+							<input type = "text" style="width:100%" class="list-group-item" name="teacherAddr" value="${teacherAddr.address}" readonly>
 						</div>
-				<%
-					} 
-				%>
+				</c:forEach>
 			</form>
 			<div class="btn-group btn-group-justified" role="group" aria-label="...">
 				<div class="btn-group" role="group">
@@ -42,8 +34,8 @@
 		<form id="teacherAddrForm" action="getTeacherAddrList.jjdev" method="post">
 			<div class="input-group">
 				<!-- 주소가 5개이상이면 삽입 못하게!! -->
-				<input type="hidden" id="teacherAddrCount" value="<%= request.getAttribute("teacherAddrCount") %>">
-				<input type="hidden" name="teacherNo" value="<%= Integer.parseInt(request.getParameter("teacherNo")) %>">
+				<input type="hidden" id="teacherAddrCount" name="teacherAddrCount" value="${teacherAddrCount}">
+				<input type="hidden" id="teacherNo" name="teacherNo" value="${param.teacherNo}">
 				<input type="text" class="form-control" id = "teacherAddress" name = "teacherAddress" placeholder="주소">
 				<span class="input-group-btn"><button class="btn btn-default" id="teacherAddrBtn" type="button">추가</button></span>
 			</div>

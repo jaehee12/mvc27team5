@@ -1,5 +1,6 @@
 <!-- [유국화] -->
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <meta charset="UTF-8">
 <!-- 사이트가 IE에서 올바로 표시되지 않는다면, 가장 최신 웹 표준 지원을 위해 사이트를 업데이터하거나,(권장)
 IE를  이전 버전의 브라우저에서 보는 것처럼 내용을 표시하도록 할 수 있습니다. 하지만 기능들이 정상적으로 작동하지 않을수도 있습니다.
@@ -10,21 +11,20 @@ IE를  이전 버전의 브라우저에서 보는 것처럼 내용을 표시하�
 <!-- 위 3개의 메타 태그는 *반드시* head 태그의 처음에 와야합니다; 어떤 다른 콘텐츠들은 반드시 이 태그들 *다음에* 와야 합니다 -->
 <title>addTeacher</title>
 <!-- 부트스트랩 기본 css-->
-<link href="<%=request.getContextPath()%>/css/bootstrap.min.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet">
 <!-- 로그인 모달부분 css-->
-<link href="<%=request.getContextPath()%>/css/login.css" rel="stylesheet">
-<!-- jQuery (부트스트랩의 자바스크립트 플러그인을 위해 필요합니다.) 그런데 나는 자바스크랩트 최신버전으로 새로 받은거임~ -->
+<link href="${pageContext.request.contextPath}/css/login.css" rel="stylesheet">
+<!-- jQuery (부트스트랩의 자바스크립트 플러그인을 위해 필요합니다.) -->
 <style>
 	.addTeacherForm{width:300px;}
 	.input-group{width:100%;}
 	.input-group-addon{top:0 !important;}
-}
 </style>
-<script src="<%=request.getContextPath()%>/js/jquery-3.3.1.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/jquery-3.3.1.min.js"></script>
 <!-- 로그인 버튼 submit -->
-<script src="<%=request.getContextPath()%>/js/topMenu.js"></script>
+<script src="${pageContext.request.contextPath}/js/topMenu.js"></script>
 <!-- 모든 컴파일된 플러그인을 포함합니다 -->
-<script src="<%=request.getContextPath()%>/js/bootstrap.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
 <script>
 // 가입할때 유효성 검사
 $(document).ready(function(){
@@ -37,7 +37,7 @@ $(document).ready(function(){
 	$("#teacherIdCheckHelp").hide();
 	$("p").hide();
 	
-	// 가입버튼 눌렀을 때 입력칸에 다 입력되있는지 안되있으면 커서가 가게 하는 유효성검사
+	// 가입버튼 눌렀을 때 입력칸에 다 입력되있는지 안되있으면 포커스가 가게 하는 유효성검사
 	$("#teacherBtn").click(function(e) {
 		if ($("#teacherId").val().length < 4) {
 			$("#teacherId").focus();
@@ -61,7 +61,7 @@ $(document).ready(function(){
 		}
 	});
 	
-	// 가입화면에서 입력하면 유효성검사의 여뷰가 success인지 fail인지 변수에 함수를 담음.
+	// 가입화면 유효성검사의 결과가 success인지 fail인지 변수에 함수를 담음.
 	var teacherSuccess = function(teacherSuccessForm){
 		teacherSuccessForm.removeClass("text-danger");
 		teacherSuccessForm.removeClass("has-error");

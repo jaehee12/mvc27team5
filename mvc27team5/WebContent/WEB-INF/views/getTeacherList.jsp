@@ -1,18 +1,13 @@
 <!-- [유국화] -->
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import = "java.util.ArrayList" %>
-<%@ page import = "model.Teacher" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
-	<%@ include file = "/WEB-INF/views/teacherHeader.jsp" %>
+	<jsp:include page="teacherHeader.jsp"></jsp:include>
 </head>
 <body>
-	<%@ include file = "/WEB-INF/views/teacherBody.jsp" %>
-	<% 
-		ArrayList<Teacher> list = new ArrayList<Teacher>();
-		list = (ArrayList<Teacher>)request.getAttribute("list");
-	%>
+	<jsp:include page="teacherBody.jsp"></jsp:include>
 	<div align="center">
 		<h1>Teacher List</h1>
 		<table border="1" class="table">
@@ -27,20 +22,16 @@
 				</tr>
 			</thead>
 			<tbody>
-				<%
-					for(Teacher teacher : list){
-				%>
-				<tr>
-					<td><%= teacher.getTeacherNo() %></td>
-					<td><%= teacher.getTeacherId() %></td>
-					<td>****</td>
-					<td><a href="<%= request.getContextPath() %>/modifyTeacher.jjdev?teacherNo=<%= teacher.getTeacherNo() %>">수정</a></td>
-					<td><a href="<%= request.getContextPath() %>/removeTeacher.jjdev?teacherNo=<%= teacher.getTeacherNo() %>">삭제</a></td>
-					<td><a href="<%= request.getContextPath() %>/getTeacherAddrList.jjdev?teacherNo=<%= teacher.getTeacherNo() %>">주소추가</a></td>
-				</tr>	
-				<%
-					}
-				%>	
+				<c:forEach var = "teacher" items = "${list}">
+					<tr>
+						<td>${teacher.teacherNo}</td>
+						<td>${teacher.teacherId}</td>
+						<td>****</td>
+						<td><a href="${pageContext.request.contextPath}/modifyTeacher.jjdev?teacherNo=${teacher.teacherNo}">수정</a></td>
+						<td><a href="${pageContext.request.contextPath}/removeTeacher.jjdev?teacherNo=${teacher.teacherNo}">삭제</a></td>
+						<td><a href="${pageContext.request.contextPath}/getTeacherAddrList.jjdev?teacherNo=${teacher.teacherNo}">주소추가</a></td>
+					</tr>
+				</c:forEach>	
 			</tbody>	
 		</table>
 	</div>

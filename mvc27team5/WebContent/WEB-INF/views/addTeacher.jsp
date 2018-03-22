@@ -1,5 +1,6 @@
 <!-- [유국화] -->
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,7 +10,7 @@
 <jsp:include page="teacherBody.jsp"></jsp:include>
 	<div class="col-md-6 col-md-offset-3">
 		<h1>Teacher 추가</h1>
-		<form id="teacherForm" action="<%=request.getContextPath()%>/addTeacher.jjdev" method="post">
+		<form id="teacherForm" action="${pageContext.request.contextPath}}/addTeacher.jjdev" method="post">
 			<div class="form-group teacher-id">
 				<label>아이디</label>
 				<div class="input-group">
