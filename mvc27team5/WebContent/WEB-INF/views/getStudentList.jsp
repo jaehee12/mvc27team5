@@ -1,7 +1,6 @@
 <!-- [김재희] -->
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import = "java.util.ArrayList" %>
-<%@ page import = "model.Student" %> 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,22 +22,25 @@
 					</tr>
 				</thead>
 				<tbody>
-					<%
+					<c:forEach var="student" items="${list}">
+						<tr>
+							<td>${student.studentNo}</td>
+							<td>${student.studentNo}</td>
+							<td>****</td><!-- 비밀번호 아예가지고 오지 말기 셀렉트에 넣지 말기 -->
+							<td><a href="${pageContext.request.contextPath}/modifyStudent.jjdev?studentNo=${student.studentNo}">수정</a></td>
+							<td><a href="${pageContext.request.contextPath}/removeStudent.jjdev?studentNo=${student.studentNo}">삭제</a></td>
+							<td><a href="${pageContext.request.contextPath}/getStudentAddrList.jjdev?studentNo=${student.studentNo}">주소추가</a></td>
+						</tr>
+					</c:forEach>
+					<%-- <%
 						ArrayList<Student> list = (ArrayList<Student>)request.getAttribute("list");
-						for(Student student : list) {
-					%>
-							<tr>
-								<td><%=student.getStudentNo() %></td>
-								<td><%=student.getStudentId() %></td>
-								<td>****</td><!-- 비밀번호 아예가지고 오지 말기 셀렉트에 넣지 말기 -->
-								<td><a href="<%= request.getContextPath()%>/modifyStudent.jjdev?studentNo=<%= student.getStudentNo()%>">수정</a></td>
-								<td><a href="<%= request.getContextPath()%>/removeStudent.jjdev?studentNo=<%= student.getStudentNo()%>">삭제</a></td>
-								<td><a href="<%= request.getContextPath()%>/getStudentAddrList.jjdev?studentNo=<%= student.getStudentNo()%>">주소추가</a></td>
-							</tr>
-					<%
+						for(Student student : list) { 
+					%> --%>
+				
+					<%-- <%
 					
 						}
-					%>
+					%> --%>
 				</tbody>
 			</table>
 	</div>

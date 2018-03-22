@@ -10,7 +10,7 @@
 <jsp:include page="studentBody.jsp"></jsp:include>
 	<div class="col-md-6 col-md-offset-3">
 			<h1>Student 추가</h1>
-			<form id="studentForm" action="<%=request.getContextPath()%>/addStudent.jjdev" method="post">
+			<form id="studentForm" action="${pageContext.request.contextPath}/addStudent.jjdev" method="post">
 				<div class="form-group student-id">
 					<label>이름</label>
 					<div class="input-group">

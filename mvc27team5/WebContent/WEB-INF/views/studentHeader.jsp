@@ -10,9 +10,9 @@ IE를  이전 버전의 브라우저에서 보는 것처럼 내용을 표시하�
 <!-- 위 3개의 메타 태그는 *반드시* head 태그의 처음에 와야합니다; 어떤 다른 콘텐츠들은 반드시 이 태그들 *다음에* 와야 합니다 -->
 <title>addStudent</title>
 <!-- 부트스트랩 기본 css-->
-<link href="<%=request.getContextPath()%>/css/bootstrap.min.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet">
 <!-- 로그인 모달부분 css 처리하기~ -->
-<link href="<%=request.getContextPath()%>/css/login.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/css/login.css" rel="stylesheet">
 <!-- jQuery (부트스트랩의 자바스크립트 플러그인을 위해 필요합니다.) 그런데 나는 자바스크랩트 최신버전으로 새로 받은거임~ -->
 <style>
 	.addStudentForm{width:300px;}
@@ -38,6 +38,8 @@ $(document).ready(function(){
 	$("#studentIdCheckHelp").hide();
 	$("p").hide();
 	
+	// student 회원가입할때 버튼을 클릭시 유효성 검사 id가 4자이상,패스워드도 4자 이상이 되고 비밀번호와
+	// 비밀번호체크할때 같아야 submit됨
 	$("#studentBtn").click(function(e) {
 		if ($("#studentId").val().length < 4) {
 			$("#studentId").focus();
@@ -50,6 +52,7 @@ $(document).ready(function(){
 		}
 	});
 	
+	// updatestudent에서 버튼 클릭시 유효성 검사, 업데이트시 패스워드가 4자 이상이 되고 비밀번호가 같은지 검사 
 	$("#updateStudentBtn").click(function(e) {
 		if ($("#uStudentPw").val().length < 4) {
 			$("#uStudentPw").focus();
@@ -60,7 +63,7 @@ $(document).ready(function(){
 		}
 	});
 	
-	//아래서 원래 사용하던 코드의 내용이중복되기때문에, 함수형태로 만들어줬다. 이건 나중에 keyup이벤트할때도 쓸것임!
+	// 폼 유효성 검사가 성공일때와 실패일때를 변수에 저장
 	var studentSuccess = function(studentSuccessForm){
 		studentSuccessForm.removeClass("text-danger");
 		studentSuccessForm.removeClass("has-error");
@@ -80,6 +83,7 @@ $(document).ready(function(){
 		studentFailForm.find("span").addClass("glyphicon glyphicon-remove-circle");
 		studentFailForm.find("p").show();
 	}
+	// 퍼센트 게이지를 나타내기위해 변수를 선언
 	var percentTotal=0;
 	var percentId=0;
 	var percentPw=0;
@@ -90,7 +94,7 @@ $(document).ready(function(){
 		$(".progress div").width(percentTotal+"%");
 	}
 	
-	//ajax로 키를 누를때만다 해당 함수를 비동기호출하여, 리턴값을통해 아이디가 존재하는지 하지않는지를 추출하려고함.
+	//ajax로 키를 누를때만다 해당 함수를 비동기호출해 리턴값을통해 아이디가 존재하는지 하지않는지를 추출하려고함.
 	$("#studentId").keyup(function(){
 		$.post("studentIdCheck.jjdev",
 			{
@@ -165,9 +169,7 @@ $(document).ready(function(){
 	
 	
 	
-	
-	
-	
+
 	
 	$("#checkAddr").click(function(){ 
 		if($("#checkAddr").prop("checked")) {
@@ -192,7 +194,7 @@ $(document).ready(function(){
 	});
 	
 	$("#removeAddrBtn").click(function(){ 
-		$(".form-check").attr("action", "removeStudentAddr.jjdev?studentNo=<%= request.getParameter("studentNo") %>");
+		$(".form-check").attr("action", "removeStudentAddr.jjdev?studentNo=<%= request.getParameter("studentNo")%>");
 		
 		$(".form-check").submit();
 	});	
