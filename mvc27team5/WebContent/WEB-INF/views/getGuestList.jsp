@@ -1,7 +1,7 @@
 <!-- [진경수] -->
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import = "model.Guest" %>
-<%@ page import = "java.util.ArrayList" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%-- prefix 는 uri부분을 치환해줌. 그래서 중복되는 것 일때는 <c:img> 이런식으로 쓰면됨. --%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,9 +9,7 @@
 </head>
 <body>
 	<jsp:include page="guestBody.jsp"></jsp:include>
-	<%
-	ArrayList<Guest> list = (ArrayList<Guest>) request.getAttribute("list");
-	%>
+	<input id = "noDap" type="hidden" value="<%= request.getAttribute("noDap") %>">
 	<div align="center">
 		<h1>guestList</h1>
 		<table border="1" class="table">
@@ -26,20 +24,17 @@
 				</tr>
 			</thead>
 			<tbody>
-				<%
-				for(Guest guest : list){
-				%>
+				<c:forEach var = "guest" items = "${list}">
 					<tr>
-						<td><%= guest.getGuestNo() %></td>
-						<td><%= guest.getGuestId() %></td>
+						<td>${guest.guestNo}</td>
+						<td>${guest.guestId}</td>
 						<td>****</td>
-						<td><a href="<%= request.getContextPath() %>/modifyGuest.jk?guestNo=<%= guest.getGuestNo() %>">수정</a></td>
-						<td><a href="<%= request.getContextPath() %>/removeGuest.jk?guestNo=<%= guest.getGuestNo() %>">삭제</a></td>
-						<td><a href="<%= request.getContextPath() %>/getGuestAddrList.jk?guestNo=<%= guest.getGuestNo() %>">주소추가</a></td>
+						<td><a href="${pageContext.request.contextPath}/modifyGuest.jk?guestNo=${guest.guestNo}">수정</a></td>
+						<td><a href="${pageContext.request.contextPath}/removeGuestAddr.jk?guestNo=${guest.guestNo}">삭제</a></td>
+						<td><a href="${pageContext.request.contextPath}/getGuestAddrList.jk?guestNo=${guest.guestNo}">주소추가</a></td>
 					</tr>
-				<%
-				}
-				%>
+				
+				</c:forEach>
 			</tbody>
 		</table>
 	</div>

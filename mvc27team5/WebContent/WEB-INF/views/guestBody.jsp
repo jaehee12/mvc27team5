@@ -17,8 +17,8 @@
 		<div class="collapse navbar-collapse"
 			id="bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav">
-				<li><a href="#" data-toggle="tooltip" data-placement="bottom"
-					title="어떤">메뉴1</a></li>
+				<li><a href="<%= request.getContextPath() %>/getGuestList.jk" data-toggle="tooltip" data-placement="bottom"
+					title="guestList">게스트 리스트</a></li>
 				<li><a href="#" data-toggle="tooltip" data-placement="bottom"
 					title="기능을">메뉴2</a></li>
 				<li><a href="#" data-toggle="tooltip" data-placement="bottom"

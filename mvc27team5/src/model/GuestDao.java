@@ -7,6 +7,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException;
+
 import db.DbConnection;
 
 public class GuestDao {
@@ -65,7 +67,7 @@ public class GuestDao {
 		
 	}
 	
-	public int deleteGuest(int guestNo) {
+	public int deleteGuest(int guestNo) throws SQLException {
 		Connection connection = null;
 		PreparedStatement statement = null;
 		ResultSet resultSet = null;
@@ -78,8 +80,6 @@ public class GuestDao {
 			statement.setInt(1, guestNo);
 			result = statement.executeUpdate();
 		} catch(ClassNotFoundException e) {
-			e.printStackTrace();
-		} catch(SQLException e) {
 			e.printStackTrace();
 		} finally {
 			if(statement != null) try { statement.close(); } catch(SQLException ex) { }
@@ -117,7 +117,7 @@ public class GuestDao {
 		Connection connection = null;
 		PreparedStatement statement = null;
 		ResultSet resultSet = null;
-		String sql = "SELECT guest_no AS guestNo, guest_id AS guestId, guest_pw AS guestPw FROM guest";
+		String sql = "SELECT guest_no AS guestNo, guest_id AS guestId, guest_pw AS guestPw, (SELECT COUNT(guest_no) FROM guest_addr WHERE guest.guest_no = guest_addr.guest_no) AS guestCount FROM guest";
 		try {
 			connection = DbConnection.dbConn();
 			statement = connection.prepareStatement(sql);
@@ -128,6 +128,7 @@ public class GuestDao {
 				guest.setGuestNo(resultSet.getInt("guestNo"));
 				guest.setGuestId(resultSet.getString("guestId"));
 				guest.setGuestPw(resultSet.getString("guestPw"));
+				guest.setGuestCount(resultSet.getInt("guestCount"));
 				list.add(guest);
 			}
 			

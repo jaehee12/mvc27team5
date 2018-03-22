@@ -209,6 +209,21 @@ $(document).ready(function(){
 		$(".form-check").attr("action", "removeGuestAddr.jk?guestNo=<%= request.getParameter("guestNo") %>");
 		
 		$(".form-check").submit();
-	});	
+	});
+	
+	$(".removeGuestList").click(function(){
+		var count = $(this).attr("value");
+ 		if(count > 0){
+		} else{
+			$(this).attr("href", "removeGuest.jk?guestNo="+$(this).attr("name"));
+			$(this).submit();
+		}
+		
+		
+	});
+	
+	
+	
+	
 });
 </script>
