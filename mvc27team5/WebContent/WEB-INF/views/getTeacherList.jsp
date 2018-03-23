@@ -34,6 +34,18 @@
 				</c:forEach>	
 			</tbody>	
 		</table>
+		<a href="${pageContext.request.contextPath}/getTeacherList.jjdev">[처음]</a>
+		<c:if test="${currentPage > 1}">
+		<a href="${pageContext.request.contextPath}/getTeacherList.jjdev?currentPage=${currentPage-1}">[이전]</a> <!-- 현재페이지보다 -1 -->
+		</c:if>
+		<c:forEach var="i" begin="1" end="${lastPage}" step="1">
+		<a href="${pageContext.request.contextPath}/getTeacherList.jjdev?currentPage=${i}">[${i}]</a>
+		</c:forEach>
+		<c:if test="${currentPage < lastPage}">
+		<a href="${pageContext.request.contextPath}/getTeacherList.jjdev?currentPage=${currentPage+1}">[다음]</a> <!-- 현재페이지보다 +1 -->
+		</c:if>
+		<a href="${pageContext.request.contextPath}/getTeacherList.jjdev?currentPage=${lastPage}">[끝]</a>		
+		<!-- 네이버처럼 페이징안에 페이징해보던가... 맨 밑에 검색기능 해보던가...	 -->	
 	</div>
 </body>
 </html>

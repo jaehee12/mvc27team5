@@ -123,20 +123,52 @@ public class TeacherDao {
 	}
 	
 	/*
+	 * 리스트에서 페이징작업위해 총레코드수를 구하는 메서드
+	 */
+	public int teacherRowCount() {
+		System.out.println("---teacherRowCount TeacherDao model---");	
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		int count = 0;
+		String sql = "SELECT count(*) FROM teacher";
+		try {
+			conn = DbConnection.dbConn();
+			pstmt = conn.prepareStatement(sql);			
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				count = rs.getInt(1);
+			}			
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if(rs != null) try { rs.close(); } catch (SQLException e) { }
+			if(pstmt != null) try { pstmt.close(); } catch (SQLException e) { }
+			if(conn != null) try { conn.close(); } catch (SQLException e) { }
+		}		
+		return count;
+	}
+	
+	/*
 	 * teacher 리스트를 화면에 보여주는 메서드
+	 * 매개변수 startRow, endRow (리스트 페이징작업위한)
 	 * list에 쿼리실행결과 데이터를 셋팅하여 리턴.
 	 */
-	public ArrayList<Teacher> selectAllTeacher() {
+	public ArrayList<Teacher> selectAllTeacher(int startRow, int endRow) {
 		System.out.println("---selectAllTeacher TeacherDao model---");	
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		Teacher teacher = null;		
 		ArrayList<Teacher> list = null;
-		String sql = "SELECT * FROM teacher";
+		String sql = "SELECT * FROM teacher LIMIT ?,?";
 		try {
 			conn = DbConnection.dbConn();
 			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
 			rs = pstmt.executeQuery();		
 			list = new ArrayList<Teacher>();
 			while(rs.next()) {
@@ -145,13 +177,13 @@ public class TeacherDao {
 				teacher.setTeacherId(rs.getString("teacher_id"));
 				teacher.setTeacherPw(rs.getString("teacher_pw"));
 				list.add(teacher);
-			}
-			
+			}			
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
+			if(rs != null) try { rs.close(); } catch (SQLException e) { }
 			if(pstmt != null) try { pstmt.close(); } catch (SQLException e) { }
 			if(conn != null) try { conn.close(); } catch (SQLException e) { }
 		}
@@ -166,7 +198,6 @@ public class TeacherDao {
 		System.out.println("---insertTeacher TeacherDao model---");
 		Connection conn = null;
 		PreparedStatement pstmt = null;
-		ResultSet rs = null;
 		int result = 0;
 		String sql = "INSERT INTO teacher (teacher_id, teacher_pw) VALUES (?,?)";	
 		try {
