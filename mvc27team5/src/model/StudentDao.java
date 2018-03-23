@@ -39,9 +39,12 @@ public class StudentDao {
 		}	
 	}
 	
-	/* Student 리스트를 조회
+	/* 
+	 * 매개변수 int startRow -> select 결과물의 시작행
+	 * 매개변수 int pagePerRow -> select 결과물의 갯수
+	 * Student 리스트를 조회
 	   DB연결 후 SELECT 쿼리문 실행준비와 쿼리문실행후 그결과를 리스트에 추가해 담은후 리턴한다.*/	
-	public ArrayList<Student> selectStudentlist() {
+	public ArrayList<Student> selectStudentlist(int startRow, int pagePerRow) {
 		System.out.println("selectStudent StudentDao.java");
 		Connection connection = null;
 		PreparedStatement statement = null;
@@ -51,8 +54,11 @@ public class StudentDao {
 			
 		try {
 			connection = DbConnection.dbConn();
-			String sql = "SELECT * FROM student";
+			// student의 리스트를 어디서부터 어디까지 조회할 것이지
+			String sql = "SELECT * FROM student LIMIT ?, ?";
 			statement = connection.prepareStatement(sql);
+			statement.setInt(1, startRow);
+			statement.setInt(2, pagePerRow);
 			resultSet = statement.executeQuery();
 			while(resultSet.next()) {
 				student = new Student();
@@ -73,6 +79,35 @@ public class StudentDao {
 		return list;
 	}
 
+	// student의 총 갯수를 카운트 하는 메서드
+	public int studentTotalRowCount() {
+		System.out.println("stuentTotalRowCount StudentDao.java");
+		Connection connection = null;
+		PreparedStatement statement = null;
+		ResultSet resultSet = null;
+		int count = 0;
+		// 총 리스트의 갯수 가져오기
+		String sql = "SELECT count(*) from student";
+		try {
+			connection = DbConnection.dbConn();
+			statement = connection.prepareStatement(sql);
+			resultSet = statement.executeQuery();
+			if(resultSet.next()) {
+				// resultSet의 get메서드를 사용해 가져온 정보들을 count에 저장 
+				count = resultSet.getInt(1);
+				System.out.println(count + "<--count StudentDao.java");
+			}
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (resultSet != null) try {resultSet.close();} catch (SQLException e) {}
+			if (statement != null) try {statement.close();} catch (SQLException e) {}
+			if (connection != null) try {connection.close();} catch (SQLException e) {}
+		}
+		return count;
+	}
 	
 	/* int타입의 studentNo를 매개변수로 받아 removeStudent메서드 실행해 
 	 * 데이터베이스에 있는 선택된 student를 삭제하는 메서드 */ 
