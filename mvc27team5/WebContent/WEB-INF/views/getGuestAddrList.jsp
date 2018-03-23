@@ -1,7 +1,6 @@
 <!-- [진경수] -->
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import = "java.util.ArrayList" %>
-<%@ page import = "model.GuestAddr" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,7 +10,6 @@
 </head>
 <body>
 	<jsp:include page="guestBody.jsp"></jsp:include>
-	<% ArrayList<GuestAddr> list = (ArrayList<GuestAddr>) request.getAttribute("list"); %>
 	<div class="col-md-4 col-md-offset-4 text-center">
 		<h1>GuestAddr 추가</h1>
 		<ul class="list-group-item">
@@ -20,12 +18,12 @@
 				<li class="list-group-item">주소</li>
 			</div>
 			<form method="post" class="form-check">
-				<% for(GuestAddr guestAddr : list){ %>
+				<c:forEach var = "guestAddr" items = "${list}">
 					<div class="input-group">
-						<span class="input-group-addon"> <input type="checkbox" name="guestAddrNoList" value="<%= guestAddr.getGuestAddrNo() %>" aria-label="..." class="checkList"></span>
-						<input type = "text" style="width:100%" class="list-group-item" name="guestAddr" value="<%= guestAddr.getAddress() %>" readonly>
+						<span class="input-group-addon"> <input type="checkbox" name="guestAddrNoList" value="${guestAddr.guestAddrNo}" aria-label="..." class="checkList"></span>
+						<input type = "text" style="width:100%" class="list-group-item" name="guestAddr" value="${guestAddr.address}" readonly>
 					</div>
-				<% } %>
+				</c:forEach>
 			</form>
 			<div class="btn-group btn-group-justified" role="group" aria-label="...">
 				<div class="btn-group" role="group">
@@ -39,8 +37,8 @@
 		<form id="guestAddrForm" action="getGuestAddrList.jk" method="post">
 			<div class="input-group">
 				<!-- 요건 만약에 주소가 5개이상이면 삽입 못하게!! -->
-				<input type="hidden" id="guestAddrCount" value="<%= request.getAttribute("guestAddrCount") %>">
-				<input type="hidden" name="guestNo" value="<%= request.getParameter("guestNo") %>">
+				<input type="hidden" id="guestAddrCount" value="${guestAddrCount}">
+				<input type="hidden" name="guestNo" value="${param.guestNo}">
 				<input type="text" class="form-control" id = "guestAddress" name = "guestAddress" placeholder="주소">
 				<span class="input-group-btn"><button class="btn btn-default" id="guestAddrBtn" type="button">추가</button></span>
 			</div>

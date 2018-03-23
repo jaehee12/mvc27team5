@@ -4,6 +4,7 @@ package controller;
 import java.io.IOException;
 import java.sql.SQLException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -19,12 +20,7 @@ public class RemoveGuest extends HttpServlet {
 		GuestDao gDao = new GuestDao();
 		GuestAddrDao gAddrDao = new GuestAddrDao();
 		int guestNo = Integer.parseInt(request.getParameter("guestNo"));
-		try {
-			gDao.deleteGuest(guestNo);
-		} catch (SQLException e) {
-			request.setAttribute("noDap", guestNo);
-		} finally {
-			response.sendRedirect(request.getContextPath() + "/getGuestList.jk");
-		}
+		gDao.deleteGuest(guestNo);
+		response.sendRedirect(request.getContextPath() + "/getGuestList.jk");
 	}
 }

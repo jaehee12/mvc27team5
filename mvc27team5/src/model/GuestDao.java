@@ -67,7 +67,7 @@ public class GuestDao {
 		
 	}
 	
-	public int deleteGuest(int guestNo) throws SQLException {
+	public int deleteGuest(int guestNo) {
 		Connection connection = null;
 		PreparedStatement statement = null;
 		ResultSet resultSet = null;
@@ -81,6 +81,8 @@ public class GuestDao {
 			result = statement.executeUpdate();
 		} catch(ClassNotFoundException e) {
 			e.printStackTrace();
+		} catch(SQLException e){
+			
 		} finally {
 			if(statement != null) try { statement.close(); } catch(SQLException ex) { }
 			if(connection != null) try { connection.close(); } catch(SQLException ex) { }
@@ -112,15 +114,45 @@ public class GuestDao {
 		return result;
 	}
 	
-	public ArrayList<Guest> selectAllGuest() {
+	public int guestRowCount() {
+		Connection connection = null;
+		PreparedStatement statement = null;
+		ResultSet resultSet = null;
+		int result = 0;
+		String sql = "SELECT COUNT(*) AS rowCount FROM guest";
+		try {
+			connection = DbConnection.dbConn();
+			statement = connection.prepareStatement(sql);
+			resultSet = statement.executeQuery();
+			
+			if(resultSet.next()) {
+				result = resultSet.getInt("rowCount");
+			}
+		} catch(ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch(SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if(resultSet != null) try { resultSet.close(); } catch(SQLException ex) { }
+			if(statement != null) try { statement.close(); } catch(SQLException ex) { }
+			if(connection != null) try { connection.close(); } catch(SQLException ex) { }
+		}
+		return result;
+	}
+	
+	public ArrayList<Guest> selectGuest(int startRow, int pagePerRow) {
 		ArrayList<Guest> list = new ArrayList<Guest>();
 		Connection connection = null;
 		PreparedStatement statement = null;
 		ResultSet resultSet = null;
-		String sql = "SELECT guest_no AS guestNo, guest_id AS guestId, guest_pw AS guestPw, (SELECT COUNT(guest_no) FROM guest_addr WHERE guest.guest_no = guest_addr.guest_no) AS guestCount FROM guest";
+		String sql = "SELECT guest_no AS guestNo, guest_id AS guestId, guest_pw AS guestPw, (SELECT COUNT(guest_no) FROM guest_addr WHERE guest.guest_no = guest_addr.guest_no) AS guestCount FROM guest LIMIT ?, ?";
+		
 		try {
 			connection = DbConnection.dbConn();
 			statement = connection.prepareStatement(sql);
+			statement.setInt(1, startRow);
+			statement.setInt(2, pagePerRow);
+			System.out.println(statement);
 			resultSet = statement.executeQuery();
 			
 			while(resultSet.next()) {

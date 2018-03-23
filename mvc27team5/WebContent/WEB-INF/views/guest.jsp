@@ -12,7 +12,7 @@
 
 <!-- 부트스트랩 -->
 <link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet">
-<link href="<%=request.getContextPath()%>/css/login.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/css/login.css" rel="stylesheet">
 
 <!-- IE8 에서 HTML5 요소와 미디어 쿼리를 위한 HTML5 shim 와 Respond.js -->
 <!-- WARNING: Respond.js 는 당신이 file:// 을 통해 페이지를 볼 때는 동작하지 않습니다. -->
@@ -52,21 +52,28 @@
 					<button type="submit" class="btn btn-default">검색</button>
 				</form>
 				<ul class="nav navbar-nav navbar-right">
-					<% if(session.getAttribute("guestId") == null){ %> <li><a href="#" data-toggle="modal" data-target="#login-modal">로그인</a></li>
-					<% } else if(!session.getAttribute("guestId").equals("admin")){ %> 
-						<li><a href="<%= request.getContextPath() %>/login/logout.jsp">로그아웃</a></li>
-					<% } else { %>
-						<li class="dropdown">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">관리<span class="caret"></span></a>
-							<ul class="dropdown-menu" role="menu">
-								<li><a href="#">기능1</a></li>
-								<li><a href="#">기능2</a></li>
-								<li class="divider"></li>
-								<li><a href="<%= request.getContextPath() %>/clan/insertClan.jsp">Guest 정보 수정</a></li>
-							</ul>
-						</li>
-						<li><a href="<%= request.getContextPath() %>/login/logout.jsp">로그아웃</a></li>				
-					<% } %>					
+					<c:choose>
+						<c:when test="${empty guestId}">
+							<li><a href="#" data-toggle="modal" data-target="#login-modal">로그인</a></li>
+						</c:when>
+						
+						<c:when test="${guestId ne 'admin'}">
+							<li><a href="${pageContext.request.contextPath}/login/logout.jsp">로그아웃</a></li>
+						</c:when>
+						
+						<c:otherwise>
+							<li class="dropdown">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">관리<span class="caret"></span></a>
+								<ul class="dropdown-menu" role="menu">
+									<li><a href="#">기능1</a></li>
+									<li><a href="#">기능2</a></li>
+									<li class="divider"></li>
+									<li><a href="${pageContext.request.contextPath}/clan/insertClan.jsp">Guest 정보 수정</a></li>
+								</ul>
+							</li>
+							<li><a href="${pageContext.request.contextPath}/login/logout.jsp">로그아웃</a></li>	
+						</c:otherwise>
+					</c:choose>
 				</ul>
 				<div class="modal fade" id="login-modal" tabindex="-1" role="dialog"
 					aria-labelledby="myModalLabel" aria-hidden="true"
@@ -75,7 +82,7 @@
 						<div class="loginmodal-container">
 							<h1>로그인</h1>
 							<br>
-							<form id="loginForm" action="<%= request.getContextPath() %>/login/loginAction.jsp" method="post">
+							<form id="loginForm" action="${pageContext.request.contextPath}/login/loginAction.jsp" method="post">
 								<input type="text" id="guestId" name="guestId" placeholder="Id"> 
 								<input type="password" id="guestPw" name="guestPw" placeholder="Password">
 								<input type="button" id="loginBtn" name="loginBtn" class="login loginmodal-submit" value="로그인">
@@ -104,11 +111,11 @@
 		<!-- Wrapper for slides -->
 		<div class="carousel-inner" role="listbox">
 			<div class="item active">
-				<img src="<%= request.getContextPath() %>/img/main.png">
+				<img src="${pageContext.request.contextPath}/img/main.png">
 				<div class="carousel-caption"></div>
 			</div>
 			<div class="item">
-				<img src="<%= request.getContextPath() %>/img/main_black.png">
+				<img src="${pageContext.request.contextPath}/img/main_black.png">
 				<div class="carousel-caption"></div>
 			</div>
 			...
@@ -130,10 +137,10 @@
 
 
 	<!-- jQuery (부트스트랩의 자바스크립트 플러그인을 위해 필요합니다.) 그런데 나는 자바스크랩트 최신버전으로 새로 받은거임~ -->
-	<script src="<%= request.getContextPath() %>/js/jquery-3.3.1.min.js"></script>
+	<script src="${pageContext.request.contextPath}/js/jquery-3.3.1.min.js"></script>
 	<!-- 로그인 버튼 누르면 submit시키려고~ -->
-	<script src="<%= request.getContextPath() %>/js/topMenu.js"></script>
+	<script src="${pageContext.request.contextPath}/js/topMenu.js"></script>
 	<!-- 모든 컴파일된 플러그인을 포함합니다 (아래), 원하지 않는다면 필요한 각각의 파일을 포함하세요 -->
-	<script src="<%= request.getContextPath()%>/js/bootstrap.min.js"></script>
+	<script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
 </body>
 </html>

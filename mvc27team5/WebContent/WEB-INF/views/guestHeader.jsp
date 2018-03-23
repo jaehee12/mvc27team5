@@ -1,5 +1,6 @@
 <!-- [진경수] -->
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <meta charset="utf-8">
 <!-- 사이트가 IE에서 올바로 표시되지 않는다면, 가장 최신 웹 표준 지원을 위해 사이트를 업데이터하거나,(권장)
 IE를  이전 버전의 브라우저에서 보는 것처럼 내용을 표시하도록 할 수 있습니다. 하지만 기능들이 정상적으로 작동하지 않을수도 있습니다.
@@ -10,9 +11,9 @@ IE를  이전 버전의 브라우저에서 보는 것처럼 내용을 표시하�
 <!-- 위 3개의 메타 태그는 *반드시* head 태그의 처음에 와야합니다; 어떤 다른 콘텐츠들은 반드시 이 태그들 *다음에* 와야 합니다 -->
 <title>addGuest</title>
 <!-- 부트스트랩 기본 css-->
-<link href="<%=request.getContextPath()%>/css/bootstrap.min.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet">
 <!-- 로그인 모달부분 css 처리하기~ -->
-<link href="<%=request.getContextPath()%>/css/login.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/css/login.css" rel="stylesheet">
 <!-- jQuery (부트스트랩의 자바스크립트 플러그인을 위해 필요합니다.) 그런데 나는 자바스크랩트 최신버전으로 새로 받은거임~ -->
 <style>
 	.addGuestForm{width:300px;}
@@ -20,11 +21,11 @@ IE를  이전 버전의 브라우저에서 보는 것처럼 내용을 표시하�
 	.input-group-addon{top:0 !important;}
 }
 </style>
-<script src="<%=request.getContextPath()%>/js/jquery-3.3.1.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/jquery-3.3.1.min.js"></script>
 <!-- 로그인 버튼 누르면 submit시키려고~ -->
-<script src="<%=request.getContextPath()%>/js/topMenu.js"></script>
+<script src="${pageContext.request.contextPath}/js/topMenu.js"></script>
 <!-- 모든 컴파일된 플러그인을 포함합니다 -->
-<script src="<%=request.getContextPath()%>/js/bootstrap.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
 <script>
 $(document).ready(function(){
 	$(".guest-id span").hide();
@@ -177,12 +178,6 @@ $(document).ready(function(){
 		percentMerge();
 	});
 	
-	
-	
-	
-	
-	
-	
 	$("#checkAddr").click(function(){ 
 		if($("#checkAddr").prop("checked")) {
 			$("input[type=checkbox]").prop("checked",true);
@@ -190,7 +185,7 @@ $(document).ready(function(){
 			$("input[type=checkbox]").prop("checked",false); 
 		} 
 	});
-
+	
 	$("#guestAddrBtn").click(function(){ 
 		if($("#guestAddress").val().length < 1) {
 			
@@ -206,23 +201,32 @@ $(document).ready(function(){
 	});
 	
 	$("#removeAddrBtn").click(function(){ 
-		$(".form-check").attr("action", "removeGuestAddr.jk?guestNo=<%= request.getParameter("guestNo") %>");
-		
+		$(".form-check").attr("action", "removeGuestAddr.jk?guestNo=${param.guestNo}");
 		$(".form-check").submit();
 	});
 	
-	$(".removeGuestList").click(function(){
-		var count = $(this).attr("value");
- 		if(count > 0){
-		} else{
-			$(this).attr("href", "removeGuest.jk?guestNo="+$(this).attr("name"));
-			$(this).submit();
+ 	var addressCount = $(".addressCount");
+	var changeLink = $(".changeLink");
+	for (var i = 0; i < addressCount.length; i++) {
+		console.log(addressCount[i].value);
+ 		if(addressCount[i].value > 0 ){
+ 			$(changeLink[i]).attr('href','#');
 		}
+	}
+	
+	
+	var myTimer = setTimeout(function() {
+		$(this).closest("tr").removeClass("danger");
+	}, 3000);
 		
-		
+	$(".changeLink").click(function(){
+		console.log($(this).attr("href"));
+		if($(this).attr("href") == "#"){
+			$(this).closest("tr").addClass("danger");
+			myTimer();
+			clearTimeout(myTimer);
+		}
 	});
-	
-	
 	
 	
 });

@@ -1,6 +1,6 @@
 <!-- [진경수] -->
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import = "model.Guest" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,15 +10,14 @@
 </head>
 <body>
 	<jsp:include page="guestBody.jsp"></jsp:include>
-	<% Guest guest = (Guest)request.getAttribute("guest"); %>
 	<div class="col-md-6 col-md-offset-3">
 		<h1>Guest 추가</h1>
-		<form id="uGuestForm" action="<%=request.getContextPath()%>/modifyGuest.jk" method="post">
-		<input type="hidden" name="guestNo" value="<%= guest.getGuestNo() %>">
+		<form id="uGuestForm" action="${pageContext.request.contextPath}/modifyGuest.jk" method="post">
+			<input type="hidden" name="guestNo" value="${guest.guestNo}">
 			<div class="form-group update-guest-id">
 				<label>이름</label>
 				<div class="input-group">
-					<input type="text" class="form-control" id="uGuestId" name="uGuestId" value="<%= guest.getGuestId() %>" readonly>
+					<input type="text" class="form-control" id="uGuestId" name="uGuestId" value="${guest.guestId}" readonly>
 				</div>
 				<p></p>
 			</div>
@@ -26,7 +25,7 @@
 				<label>비밀번호</label>
 				<div class="input-group">
 					<span class="input-group-addon"></span>
-					<input type="password" class="form-control" id="uGuestPw" name="uGuestPw" value="<%= guest.getGuestPw() %>">
+					<input type="password" class="form-control" id="uGuestPw" name="uGuestPw" value="${guest.guestPw}">
 				</div>
 				<p >비밀번호를 4자 이상 입력 해 주세요</p>
 			</div>
@@ -34,7 +33,7 @@
 				<label>비밀번호 확인</label>
 				<div class="input-group">
 					<span class="input-group-addon"></span>
-					<input type="password" class="form-control" id="uGuestPwCheck" name="uGuestPwCheck" value="<%= guest.getGuestPw() %>">
+					<input type="password" class="form-control" id="uGuestPwCheck" name="uGuestPwCheck" value="${guest.guestPw}">
 				</div>
 				<p>비밀번호가 일치하지 않습니다</p>
 			</div>

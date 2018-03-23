@@ -37,6 +37,7 @@ public class GetGuestAddrListController extends HttpServlet {
 		//위에 doGet에서 보냈던것을 수정한 정보를 여기에서 받아서 객체에 셋팅해줌
 		guestAddr.setGuestNo(Integer.parseInt(request.getParameter("guestNo")));
 		guestAddr.setAddress(request.getParameter("guestAddress"));
+		System.out.println(guestAddr.toString());
 		//수정 고고
 		gAddrDao.insertGuestAddr(guestAddr);
 		//수정한뒤 다시 리스트로 컴백 

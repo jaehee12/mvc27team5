@@ -1,5 +1,5 @@
-<!-- [진경수] -->
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,7 +9,7 @@
 <jsp:include page="guestBody.jsp"></jsp:include>
 	<div class="col-md-6 col-md-offset-3">
 		<h1>Guest 추가</h1>
-		<form id="guestForm" action="<%=request.getContextPath()%>/addGuest.jk" method="post">
+		<form id="guestForm" action="${pageContext.request.contextPath}/addGuest.jk" method="post">
 			<div class="form-group guest-id">
 				<label>이름</label>
 				<div class="input-group">

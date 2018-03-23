@@ -28,8 +28,9 @@ public class ModifyGuest extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		//위에 doGet에서 보냈던것을 수정한 정보를 여기에서 받아서 객체에 셋팅해줌
 		guest.setGuestNo(Integer.parseInt(request.getParameter("guestNo")));
-		guest.setGuestId(request.getParameter("guestId"));
-		guest.setGuestPw(request.getParameter("guestPw"));
+		guest.setGuestId(request.getParameter("uGuestId"));
+		guest.setGuestPw(request.getParameter("uGuestPw"));
+		System.out.println(guest.toString());
 		//수정 고고
 		gDao.updateGuest(guest);
 		//수정한뒤 다시 리스트로 컴백 

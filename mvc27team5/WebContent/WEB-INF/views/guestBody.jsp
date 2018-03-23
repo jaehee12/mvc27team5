@@ -1,5 +1,6 @@
 <!-- [진경수] -->
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <nav class="navbar  navbar-inverse" style="margin-bottom: 0;">
 	<div class="container-fluid">
 		<!-- Brand and toggle get grouped for better mobile display -->
@@ -17,7 +18,7 @@
 		<div class="collapse navbar-collapse"
 			id="bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav">
-				<li><a href="<%= request.getContextPath() %>/getGuestList.jk" data-toggle="tooltip" data-placement="bottom"
+				<li><a href="${pageContext.request.contextPath}/getGuestList.jk" data-toggle="tooltip" data-placement="bottom"
 					title="guestList">게스트 리스트</a></li>
 				<li><a href="#" data-toggle="tooltip" data-placement="bottom"
 					title="기능을">메뉴2</a></li>
@@ -35,24 +36,45 @@
 				<button type="submit" class="btn btn-default">검색</button>
 			</form>
 			<ul class="nav navbar-nav navbar-right">
-				<% if(session.getAttribute("guestId") == null){ %>
-				<li><a href="<%= request.getContextPath() %>/addGuest.jk">회원가입</a></li>
-				<li><a href="#" data-toggle="modal" data-target="#login-modal">로그인</a></li>
-				<% } else if(!session.getAttribute("guestId").equals("admin")){ %>
-				<li><a href="<%= request.getContextPath() %>/login/logout.jsp">로그아웃</a></li>
-				<% } else { %>
-				<li class="dropdown"><a href="#" class="dropdown-toggle"
-					data-toggle="dropdown" role="button" aria-expanded="false">관리<span
-						class="caret"></span></a>
-					<ul class="dropdown-menu" role="menu">
-						<li><a href="#">기능1</a></li>
-						<li><a href="#">기능2</a></li>
-						<li class="divider"></li>
-						<li><a href="#">Guest 정보 수정</a></li>
-					</ul></li>
-				<li><a href="#">로그아웃</a></li>
-				<% } %>
-			</ul>
+					<c:choose>
+						<c:when test="${empty guestId}">
+							<li><a href="addGuest.jk">회원가입</a></li>
+							<li><a href="#" data-toggle="modal" data-target="#login-modal">로그인</a></li>
+						</c:when>
+						
+						<c:when test="${guestId ne 'admin'}">
+							<li><a href="${pageContext.request.contextPath}/login/logout.jsp">로그아웃</a></li>
+						</c:when>
+						
+						<c:otherwise>
+							<li class="dropdown">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">관리<span class="caret"></span></a>
+								<ul class="dropdown-menu" role="menu">
+									<li><a href="#">기능1</a></li>
+									<li><a href="#">기능2</a></li>
+									<li class="divider"></li>
+									<li><a href="${pageContext.request.contextPath}/clan/insertClan.jsp">Guest 정보 수정</a></li>
+								</ul>
+							</li>
+							<li><a href="${pageContext.request.contextPath}/login/logout.jsp">로그아웃</a></li>	
+						</c:otherwise>
+					</c:choose>
+				</ul>
+				<div class="modal fade" id="login-modal" tabindex="-1" role="dialog"
+					aria-labelledby="myModalLabel" aria-hidden="true"
+					style="display: none;">
+					<div class="modal-dialog">
+						<div class="loginmodal-container">
+							<h1>로그인</h1>
+							<br>
+							<form id="loginForm" action="${pageContext.request.contextPath}/login/loginAction.jsp" method="post">
+								<input type="text" name="guestId" placeholder="Id"> 
+								<input type="password" name="guestPw" placeholder="Password">
+								<input type="button" id="loginBtn" name="loginBtn" class="login loginmodal-submit" value="로그인">
+							</form>
+						</div>
+					</div>
+				</div>
 		</div>
 		<!-- /.navbar-collapse -->
 	</div>
