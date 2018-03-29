@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%-- prefix 는 uri부분을 치환해줌. 그래서 중복되는 것 일때는 <c:img> 이런식으로 쓰면됨. --%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -73,7 +72,6 @@
 				</c:forEach>
 				
 				<c:choose>
-					<!-- 만약에, 다음페이지의값, 즉 오른쪽에 나올 값들 예를들어, 11, 21, 31 등의 값들이 내가 구현하고자하는 페이지수보다 클경우 >>표시를 안해줌! -->
 					<c:when test="${intLastPage < nextPage}">
 					</c:when>
 					<c:otherwise>
